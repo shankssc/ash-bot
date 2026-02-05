@@ -1,0 +1,126 @@
+# ======================
+# PYTHON
+# ======================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv
+
+# ======================
+# ENVIRONMENT & SECRETS
+# ======================
+.env
+.env.local
+.env.*.local
+.secrets
+*.key
+*.pem
+
+# ======================
+# LOGS & DATA
+# ======================
+logs/
+*.log
+*.log.*
+!logs/.gitkeep
+
+# Vector database (ChromaDB) - DO NOT COMMIT
+data/chroma_db/
+!data/.gitkeep
+
+# Cached embeddings/models
+models/
+*.bin
+*.pth
+*.onnx
+
+# ======================
+# IDE & EDITORS
+# ======================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+.cache/
+.pytest_cache/
+.coverage
+htmlcov/
+.pyre/
+.mypy_cache/
+
+# ======================
+# TESTING
+# ======================
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# ======================
+# DOCKER
+# ======================
+.dockerenv
+docker-compose.override.yml
+
+# ======================
+# OS & MISC
+# ======================
+*.tmp
+*.bak
+*.pid
+*.sock
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# ======================
+# PROJECT-SPECIFIC
+# ======================
+# Ollama model cache (local only)
+~/.ollama/
+
+# LangSmith cache
+.langchain/
+
+# Evaluation outputs (keep test queries, not results)
+evaluation/results.json
+evaluation/*.csv
+
+# Temporary files
+tmp/
+temp/
+*.tmp
