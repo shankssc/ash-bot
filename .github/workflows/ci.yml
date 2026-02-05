@@ -1,0 +1,127 @@
+name: ash-bot CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-test:
+    name: 🐍 Python Checks & Tests (Linux)
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🐍 Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+          cache-dependency-path: |
+            requirements*.txt
+
+      - name: 📦 Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+          pip install semgrep  # Linux-only but CI is Linux
+
+      - name: 🔒 Detect secrets baseline check
+        run: |
+          detect-secrets scan --baseline .secrets.baseline || \
+          (echo "::error::🚨 New secrets detected - review .secrets.baseline" && exit 1)
+
+      - name: 🧹 Run Ruff (linting + formatting)
+        run: |
+          ruff check app/ tests/ --fix
+          ruff format app/ tests/
+
+      - name: 🎨 Run Black (formatting verification)
+        run: black --check app/ tests/
+
+      - name: 🔍 Run Mypy (type checking)
+        run: mypy app/ --exclude "tests|frontend"
+
+      - name: 🛡️ Run Bandit (security)
+        run: bandit -r app/ -s B101,B104,B105,B106,B107,B110,B112,B311,B404,B603,B607,B703
+
+      - name: 🔍 Run Semgrep (deep security patterns)
+        run: semgrep scan --config auto app/
+
+      - name: 📦 Run pip-audit (vulnerability scan)
+        run: pip-audit -r requirements.txt -r requirements-dev.txt
+
+      - name: 🧪 Run tests with coverage
+        run: |
+          # Create minimal .env for tests
+          echo "ENVIRONMENT=test" > .env
+          echo "OLLAMA_BASE_URL=http://localhost:11434" >> .env
+          pytest tests/ -v --tb=short --cov=app --cov-report=xml --cov-report=term-missing
+        env:
+          ENVIRONMENT: test
+
+      - name: 📊 Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+        if: success()
+
+      - name: 🧠 Memory profiling (Linux-only, main branch)
+        if: runner.os == 'Linux' && github.ref == 'refs/heads/main'
+        run: |
+          pip install memray pytest-memray
+          pytest tests/ -v --memray --memray-keep-results
+        continue-on-error: true # Non-blocking for now
+
+  windows-compat:
+    name: 🪟 Windows Compatibility Check
+    runs-on: windows-latest
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🐍 Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 📦 Install Windows-safe dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install ruff black mypy bandit detect-secrets pip-audit pytest pytest-asyncio pytest-cov
+
+      - name: 🧹 Basic linting (Windows)
+        run: ruff check app/ tests/
+
+      - name: 🧪 Run basic tests (Windows)
+        run: |
+          echo ENVIRONMENT=test > .env
+          pytest tests/ -v --tb=short -m "not memory"
+        env:
+          ENVIRONMENT: test
+        continue-on-error: true # Non-blocking for now
+
+  docker-build:
+    name: 🐳 Docker Build
+    runs-on: ubuntu-latest
+    needs: [lint-test, windows-compat]
+    if: github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🐳 Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: 🏗️ Build Docker image
+        run: |
+          docker build -t ash-bot:ci -f deployment/Dockerfile .

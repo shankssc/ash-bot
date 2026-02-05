@@ -1,0 +1,58 @@
+# .pre-commit-config.yaml
+default_language_version:
+  python: default # Uses the Python from your active venv (3.12.4)
+
+repos:
+  # Ruff - Linting & Formatting
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.9 # Updated to latest stable
+    hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+      - id: ruff-format
+
+  # Black - Code Formatting
+  - repo: https://github.com/psf/black-pre-commit-mirror
+    rev: 24.10.0 # Updated to latest stable
+    hooks:
+      - id: black
+
+  # Mypy - Type Checking
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.11.2 # Updated to latest stable
+    hooks:
+      - id: mypy
+        files: ^app/
+        args: [--config-file=pyproject.toml]
+        additional_dependencies:
+          - pydantic>=2.0.0
+          - pydantic-settings>=2.0.0
+          - fastapi>=0.100.0
+          - starlette>=0.27.0
+          - httpx>=0.23.0
+          - redis>=4.0.0
+          - boto3>=1.26.0
+
+  # Bandit - Security Scanning
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.8
+    hooks:
+      - id: bandit
+        args: [-c, pyproject.toml, -ll] # -ll = medium confidence
+        files: ^app/
+
+  # Detect Secrets
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets
+        args: ["--baseline", ".secrets.baseline"]
+        exclude: .secrets.baseline
+
+  # pip-audit - Dependency Vulnerabilities
+  - repo: https://github.com/pypa/pip-audit
+    rev: v2.7.3 # Updated to latest stable
+    hooks:
+      - id: pip-audit
+        args:
+          [--requirement, requirements.txt, --requirement, requirements-dev.txt]
