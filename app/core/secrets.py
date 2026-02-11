@@ -7,14 +7,23 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Secrets(BaseSettings):
     """Secret values - NEVER exposed in logs/reprs."""
 
-    # AWS credentials (example - use IAM roles in prod!)
+    # ===== VECTOR DATABASE =====
+    QDRANT_API_KEY: SecretStr = SecretStr("")
+
+    # ===== CACHE =====
+    REDIS_URL: SecretStr = SecretStr("")
+
+    # ===== LLM APIs =====
+    GROQ_API_KEY: SecretStr = SecretStr("")
+    TOGETHER_API_KEY: SecretStr = SecretStr("")
+
+    # ===== MONITORING =====
+    BETTERSTACK_SOURCE_TOKEN: SecretStr = SecretStr("")
+
+    # ===== LEGACY (keep for now) =====
     AWS_ACCESS_KEY_ID: SecretStr = SecretStr("")
     AWS_SECRET_ACCESS_KEY: SecretStr = SecretStr("")
-
-    # Cognito
     COGNITO_CLIENT_SECRET: SecretStr = SecretStr("")
-
-    # Stripe
     STRIPE_SECRET_KEY: SecretStr = SecretStr("")
 
     model_config = SettingsConfigDict(
