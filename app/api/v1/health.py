@@ -5,7 +5,7 @@ Health check endpoint with dependency validation.
 from fastapi import APIRouter, Depends, status
 
 from app.core.config import Settings, get_settings
-from app.core.logger import get_logger
+from app.core.logging import get_logger
 from app.core.secrets import secrets
 
 router = APIRouter(prefix="/health", tags=["health"])
