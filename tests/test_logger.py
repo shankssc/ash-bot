@@ -11,7 +11,7 @@ from pathlib import Path
 import pytest
 
 from app.core.config import Settings
-from app.core.logger import _early_logger, get_logger, init_logging
+from app.core.logging import _early_logger, get_logger, init_logging
 
 
 @pytest.fixture(autouse=True)
@@ -21,15 +21,15 @@ def reset_logger_state():
     _cleanup_test_loggers()
 
     # Reset singleton WITHOUT importing the variable (fixes F811 redefinition)
-    import app.core.logger
+    import app.core.logging
 
-    app.core.logger._logger_config = None
+    app.core.logging._logger_config = None
 
     yield
 
     # AFTER TEST: Aggressive cleanup of test artifacts to release Windows file locks
     _cleanup_test_loggers()
-    app.core.logger._logger_config = None
+    app.core.logging._logger_config = None
 
 
 def _cleanup_test_loggers():
@@ -199,7 +199,7 @@ def test_logger_config_accepts_none_settings():
         reload(app.core.config)
 
         # Now create LoggerConfig without explicit settings
-        from app.core.logger import LoggerConfig
+        from app.core.logging import LoggerConfig
 
         config = LoggerConfig()
 
