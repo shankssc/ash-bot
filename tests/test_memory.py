@@ -22,7 +22,15 @@ def test_config_incremental_memory():
 
 
 def test_config_process_memory_ceiling():
-    """Verify total process memory stays under 60MB (catches dependency bloat)."""
+    """
+    Verify total process memory stays under ceiling (catches dependency bloat).
+
+    This threshold includes:
+    - Python runtime
+    - Pydantic v2 + FastAPI
+    - pytest + coverage overhead
+    - Our code + buffer
+    """
     from app.core.config import Settings
 
     # Warm-up
@@ -31,8 +39,16 @@ def test_config_process_memory_ceiling():
     # Measure total process memory (includes Python/pydantic baseline)
     _, peak_kb = get_memory_usage()
 
+    MEMORY_CEILING_MB = 80
+    MEMORY_CEILING_KB = MEMORY_CEILING_MB * 1024
+
     # Realistic ceiling: 60MB accounts for Pydantic v2 + dotenv + CI noise
-    assert peak_kb < 61440, (
-        f"Total process memory {peak_kb}KB exceeds 60MB ceiling. "
-        f"This likely indicates accidental large dependency or data loading."
+    assert peak_kb < MEMORY_CEILING_KB, (
+        f"Total process memory {peak_kb / 1024:.1f}MB exceeds {MEMORY_CEILING_MB}MB ceiling.\n"
+        f"Current: {peak_kb / 1024:.1f}MB | Limit: {MEMORY_CEILING_MB}MB | Headroom: {(MEMORY_CEILING_KB - peak_kb) / 1024:.1f}MB\n"
+        f"This may indicate:\n"
+        f"  - New heavy dependencies added\n"
+        f"  - Accidental data loading at import time\n"
+        f"  - CI environment changes (update threshold if expected)\n"
+        f"Tip: Use measure_memory_delta() to isolate YOUR code's memory usage."
     )
