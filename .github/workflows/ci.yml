@@ -33,30 +33,11 @@ jobs:
           pip install -r requirements-dev.txt
           pip install semgrep  # Linux-only but CI is Linux
 
-      - name: 🔒 Detect secrets baseline check
-        run: |
-          detect-secrets scan --baseline .secrets.baseline || \
-          (echo "::error::🚨 New secrets detected - review .secrets.baseline" && exit 1)
-
-      - name: 🧹 Run Ruff (linting + formatting)
-        run: |
-          ruff check app/ tests/ --fix
-          ruff format app/ tests/
-
-      - name: 🎨 Run Black (formatting verification)
-        run: black --check app/ tests/
-
-      - name: 🔍 Run Mypy (type checking)
-        run: mypy app/ --exclude "tests|frontend"
-
-      - name: 🛡️ Run Bandit (security)
-        run: bandit -r app/ -s B101,B104,B105,B106,B107,B110,B112,B311,B404,B603,B607,B703
+      - name: 🪝 Run pre-commit (all linting/formatting/security)
+        uses: pre-commit/action@v3.0.1
 
       - name: 🔍 Run Semgrep (deep security patterns)
         run: semgrep scan --config auto app/
-
-      - name: 📦 Run pip-audit (vulnerability scan)
-        run: pip-audit -r requirements.txt -r requirements-dev.txt
 
       - name: 🧪 Run tests with coverage
         run: |
