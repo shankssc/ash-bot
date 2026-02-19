@@ -9,12 +9,10 @@ from typing import Any
 
 import numpy as np
 
-from sentence_transformers import SentenceTransformer  # type: ignore
+from sentence_transformers import SentenceTransformer
 
 from app.core.config import get_settings
-from app.core.logging import get_logger
 
-logger = get_logger(__name__)
 settings = get_settings()
 
 
@@ -25,7 +23,10 @@ class EmbeddingGenerator:
         self.model_name = model_name or settings.EMBEDDING_MODEL_NAME
         self.device = device or settings.EMBEDDING_DEVICE
 
-        logger.info(f"Loading embedding model: {self.model_name} on {self.device}")
+        from app.core.logging import get_logger
+
+        self.logger = get_logger(__name__)
+        self.logger.info(f"Loading embedding model: {self.model_name} on {self.device}")
         try:
             self.model = SentenceTransformer(
                 self.model_name,
@@ -34,16 +35,16 @@ class EmbeddingGenerator:
             )
 
             dim = self.model.get_sentence_embedding_dimension()
-            logger.info(f"✓ Embedding model loaded. Dimension: {dim}")
+            self.logger.info(f"Embedding model loaded. Dimension: {dim}")
 
             # Validate dimension matches Qdrant config
             if dim != settings.QDRANT_VECTOR_SIZE:
-                logger.warning(
+                self.logger.warning(
                     f"Embedding dimension ({dim}) != QDRANT_VECTOR_SIZE ({settings.QDRANT_VECTOR_SIZE}). "
                     "Update .env to match model dimension."
                 )
         except Exception as e:
-            logger.error(f"Failed to load embedding model: {e}")
+            self.logger.error(f"Failed to load embedding model: {e}")
             raise
 
     def generate(self, texts: list[str]) -> tuple[np.ndarray, list[dict[str, Any]]]:
@@ -57,10 +58,10 @@ class EmbeddingGenerator:
             Tuple of (embeddings array, metadata list)
         """
         if not texts:
-            logger.warning("No texts provided for embedding generation")
+            self.logger.warning("No texts provided for embedding generation")
             return np.array([]), []
 
-        logger.debug(f"Generating embeddings for {len(texts)} texts...")
+        self.logger.debug(f"Generating embeddings for {len(texts)} texts...")
 
         try:
             # Generate embeddings in batches
@@ -81,11 +82,13 @@ class EmbeddingGenerator:
                 for text in texts
             ]
 
-            logger.debug(f"✓ Generated {len(embeddings)} embeddings with shape {embeddings.shape}")
+            self.logger.debug(
+                f"✓ Generated {len(embeddings)} embeddings with shape {embeddings.shape}"
+            )
             return embeddings, metadata
 
         except Exception as e:
-            logger.error(f"Embedding generation failed: {e}", exc_info=True)
+            self.logger.error(f"Embedding generation failed: {e}", exc_info=True)
             raise
 
     def generate_single(self, text: str) -> tuple[np.ndarray, dict[str, Any]]:

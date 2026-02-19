@@ -9,10 +9,6 @@ import re
 from dataclasses import dataclass
 from typing import Any
 
-from app.core.logging import get_logger
-
-logger = get_logger(__name__)
-
 
 @dataclass(frozen=True)
 class TextChunk:
@@ -31,6 +27,10 @@ class SemanticChunker:
     """Chunks text using semantic boundaries (sentence-aware)."""
 
     def __init__(self, chunk_size: int = 512, chunk_overlap: int = 50, min_chunk_size: int = 100):
+        from app.core.logging import get_logger
+
+        self.logger = get_logger(__name__)
+
         if chunk_size <= chunk_overlap:
             raise ValueError("chunk_size must be greater than chunk_overlap")
         if min_chunk_size > chunk_size:
@@ -67,13 +67,15 @@ class SemanticChunker:
             List of TextChunk objects
         """
         if not text or len(text.strip()) < self.min_chunk_size:
-            logger.debug(f"Skipping chunking for {source_id}: text too short ({len(text)} chars)")
+            self.logger.debug(
+                f"Skipping chunking for {source_id}: text too short ({len(text)} chars)"
+            )
             return []
 
         metadata = meta or {}
         sentences = self._split_into_sentences(text)
         if not sentences:
-            logger.warning(f"No valid sentences found for {source_id}")
+            self.logger.warning(f"No valid sentences found for {source_id}")
             return []
 
         chunks: list[TextChunk] = []
@@ -125,5 +127,5 @@ class SemanticChunker:
                     )
                 )
 
-        logger.debug(f"Chunked {source_id} into {len(chunks)} chunks")
+        self.logger.debug(f"Chunked {source_id} into {len(chunks)} chunks")
         return chunks

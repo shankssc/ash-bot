@@ -1,0 +1,13 @@
+{
+  "pipeline_version": "1.0.0",
+  "generated_at": "2026-02-19T02:10:15.673034",
+  "duration_seconds": 1.357301,
+  "anime_count": 3,
+  "chunk_count": 8,
+  "embedding_shape": [
+    8,
+    384
+  ],
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "vector_size": 384
+}

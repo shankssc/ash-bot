@@ -1,0 +1,42 @@
+[
+  {
+    "text_length": 422,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 558,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 494,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 410,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 416,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 511,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 515,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 561,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  }
+]

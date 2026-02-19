@@ -6,18 +6,17 @@ from __future__ import annotations
 
 import json
 
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
 import numpy as np
 
 from app.core.config import get_settings
-from app.core.logging import get_logger
 from app.ingestion.embedder import EmbeddingGenerator
 from app.ingestion.processors.chunker import SemanticChunker, TextChunk
 from app.ingestion.sources.jikan_client import JikanClient
 
-logger = get_logger(__name__)
 settings = get_settings()
 
 
@@ -41,11 +40,20 @@ class MinimalIngestionPipeline:
         Returns:
             Summary statistics
         """
+        from app.core.logging import get_logger  # Late import
+
+        logger = get_logger(__name__)
+
         logger.info(f"Starting minimal ingestion pipeline (max_anime={max_anime})")
+        logger.info(f"Starting minimal ingestion pipeline (max_anime={max_anime})")
+
+        start_time = datetime.now()
 
         anime_data = []
         chunks: list[TextChunk] = []
         chunk_texts = []
+
+        duration = (datetime.now() - start_time).total_seconds()
 
         # Step 1: Fetch anime data
         logger.info("Step 1: Fetching anime data from Jikan API...")
@@ -69,6 +77,8 @@ class MinimalIngestionPipeline:
                         "score": anime.get("score", 0),
                         "type": anime.get("type", ""),
                         "episodes": anime.get("episodes", 0),
+                        "aired": anime.get("aired", {}).get("string", ""),
+                        "genres": [g["name"] for g in anime.get("genres", [])],
                     }
                 )
 
@@ -79,6 +89,7 @@ class MinimalIngestionPipeline:
                         "anime_title": title,
                         "source": "jikan_api",
                         "field": "synopsis",
+                        "fetched_at": datetime.utcnow().isoformat(),
                     }
                     synopsis_chunks = self.chunker.chunk_text(
                         text=synopsis,
@@ -91,11 +102,18 @@ class MinimalIngestionPipeline:
 
         # Step 3: Generate embeddings
         logger.info(f"Step 2: Generating embeddings for {len(chunk_texts)} chunks...")
-        embeddings, embedding_metadata = self.embedder.generate(chunk_texts)
+        if chunk_texts:
+            embeddings, embedding_metadata = self.embedder.generate(chunk_texts)
+        else:
+            logger.warning("No chunks to embed!")
+            embeddings = np.array([])
+            embedding_metadata = []
+
+        duration = (datetime.now() - start_time).total_seconds()
 
         # Step 4: Save to disk
         logger.info("Step 3: Saving results to disk...")
-        self._save_results(anime_data, chunks, embeddings, embedding_metadata)
+        self._save_results(anime_data, chunks, embeddings, embedding_metadata, duration)
 
         # Return summary
         summary = {
@@ -103,6 +121,7 @@ class MinimalIngestionPipeline:
             "chunks_created": len(chunks),
             "embeddings_generated": len(embeddings),
             "output_dir": str(self.output_dir),
+            "duration_seconds": round(duration, 2),
             "status": "success",
         }
 
@@ -115,6 +134,7 @@ class MinimalIngestionPipeline:
         chunks: list[TextChunk],
         embeddings: np.ndarray,
         embedding_metadata: list[dict[str, Any]],
+        duration_seconds: float,
     ):
         """Save pipeline results to disk."""
         # Save anime metadata
@@ -134,8 +154,8 @@ class MinimalIngestionPipeline:
             }
             for c in chunks
         ]
-        with open(self.output_dir / "chunks.json", "w") as f:
-            json.dump(chunks_data, f, indent=2)
+        with open(self.output_dir / "chunks.json", "w", encoding="utf-8") as f:
+            json.dump(chunks_data, f, indent=2, ensure_ascii=False)
 
         # Save embeddings (as .npy for efficiency)
         np.save(self.output_dir / "embeddings.npy", embeddings)
@@ -144,12 +164,29 @@ class MinimalIngestionPipeline:
         with open(self.output_dir / "embedding_metadata.json", "w") as f:
             json.dump(embedding_metadata, f, indent=2)
 
+        # CREATE MANIFEST.JSON
+        manifest = {
+            "pipeline_version": settings.APP_VERSION,
+            "generated_at": datetime.utcnow().isoformat(),
+            "duration_seconds": duration_seconds,
+            "anime_count": len(anime_data),
+            "chunk_count": len(chunks),
+            "embedding_shape": embeddings.shape if len(embeddings) > 0 else [0, 0],
+            "embedding_model": settings.EMBEDDING_MODEL_NAME,
+            "vector_size": settings.QDRANT_VECTOR_SIZE,
+        }
+
+        # Save MANIFEST.json
+        with open(self.output_dir / "MANIFEST.json", "w", encoding="utf-8") as f:
+            json.dump(manifest, f, indent=2)
+
         # Save README with pipeline info
-        with open(self.output_dir / "README.md", "w") as f:
+        with open(self.output_dir / "README.md", "w", encoding="utf-8") as f:
             f.write(
                 f"""# Minimal Ingestion Pipeline Output
 
 Generated on: {settings.APP_VERSION}
+Duration: {manifest["duration_seconds"]:.2f} seconds
 Anime processed: {len(anime_data)}
 Chunks created: {len(chunks)}
 Embedding dimension: {embeddings.shape[1] if len(embeddings) > 0 else 0}
@@ -159,6 +196,12 @@ Embedding dimension: {embeddings.shape[1] if len(embeddings) > 0 else 0}
 - `chunks.json`: Text chunks with metadata
 - `embeddings.npy`: Embedding vectors (numpy array)
 - `embedding_metadata.json`: Per-embedding metadata
+- `MANIFEST.json`: Pipeline execution metadata
+
+## Usage
+```python
+import numpy as np
+embeddings = np.load('embeddings.npy')
 """
             )
 

@@ -13,7 +13,7 @@ from typing import Any, cast
 
 import httpx
 
-from tenacity import (  # type: ignore
+from tenacity import (
     retry,
     retry_if_exception_type,
     stop_after_attempt,
@@ -21,9 +21,7 @@ from tenacity import (  # type: ignore
 )
 
 from app.core.config import get_settings
-from app.core.logging import get_logger
 
-logger = get_logger(__name__)
 settings = get_settings()
 
 
@@ -31,6 +29,9 @@ class JikanClient:
     """Async client for Jikan API (MyAnimeList data) with built-in safeguards."""
 
     def __init__(self, limit_per_page: int = 25):
+        from app.core.logging import get_logger
+
+        self.logger = get_logger(__name__)
         self.base_url = settings.JIKAN_API_URL.rstrip("/")
         self.rate_limit_per_sec = settings.JIKAN_RATE_LIMIT_PER_SECOND
         self.limit_per_page = min(limit_per_page, 25)  # Jikan max is 25
@@ -78,7 +79,7 @@ class JikanClient:
             raise RuntimeError("Client not initialized. Use 'async with' context manager.")
 
         url = f"{self.base_url}/{endpoint}"
-        logger.debug(f"Fetching: {url} with params {params}")
+        self.logger.debug(f"Fetching: {url} with params {params}")
 
         response = await self._client.get(url, params=params)
         response.raise_for_status()
@@ -101,7 +102,7 @@ class JikanClient:
 
         while entries_fetched < max_entries:
             try:
-                logger.info(
+                self.logger.info(
                     f"Fetching page {page} from Jikan API (entries {entries_fetched}/{max_entries})..."
                 )
                 response = await self._get(
@@ -110,7 +111,7 @@ class JikanClient:
 
                 anime_list = response.get("data", [])
                 if not anime_list:
-                    logger.warning("No anime data returned from API")
+                    self.logger.warning("No anime data returned from API")
                     break
 
                 for anime in anime_list:
@@ -119,7 +120,7 @@ class JikanClient:
 
                     # Validate required fields per spec
                     if "mal_id" not in anime or "title" not in anime:
-                        logger.warning(
+                        self.logger.warning(
                             f"Skipping malformed anime entry: {anime.get('mal_id', 'unknown')}"
                         )
                         continue
@@ -130,7 +131,7 @@ class JikanClient:
                 # Check pagination
                 pagination = response.get("pagination", {})
                 if not pagination.get("has_next_page", False):
-                    logger.info("Reached end of pagination")
+                    self.logger.info("Reached end of pagination")
                     break
 
                 page += 1
@@ -138,15 +139,17 @@ class JikanClient:
 
             except httpx.HTTPStatusError as e:
                 if e.response.status_code == 429:
-                    logger.warning("Rate limited by Jikan API, sleeping for 60 seconds...")
+                    self.logger.warning("Rate limited by Jikan API, sleeping for 60 seconds...")
                     await asyncio.sleep(60)
                     continue
                 elif e.response.status_code == 404:
-                    logger.warning(f"Page {page} not found, stopping pagination")
+                    self.logger.warning(f"Page {page} not found, stopping pagination")
                     break
                 else:
-                    logger.error(f"HTTP {e.response.status_code} on page {page}: {e.response.text}")
+                    self.logger.error(
+                        f"HTTP {e.response.status_code} on page {page}: {e.response.text}"
+                    )
                     raise
             except Exception as e:
-                logger.error(f"Unexpected error fetching page {page}: {e}", exc_info=True)
+                self.logger.error(f"Unexpected error fetching page {page}: {e}", exc_info=True)
                 raise

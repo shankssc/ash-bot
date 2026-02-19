@@ -23,6 +23,7 @@ ignore = [
 ]
 
 [tool.ruff.lint.per-file-ignores]
+"scripts/**/*" = ["I001", "T201"]  # Allow unsorted imports + print() in CLI scripts
 "tests/**/*" = ["S101"]  # Allow assert statements in all test files
 "tests/utils/memory.py" = ["S101", "T201", "S110"]
 
@@ -64,6 +65,8 @@ module = [
     "psutil.*",
     "resource.*",
     "numpy.*",
+    "sentence_transformers.*",
+    "tenacity.*",
 ]
 ignore_missing_imports = true
 
