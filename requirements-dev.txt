@@ -1,14 +1,14 @@
 # Linters & Formatters
-ruff==0.6.9
+ruff==0.15.0
 black==24.10.0
-mypy==1.11.2
+mypy==1.19.1
 
 # Security
-bandit==1.7.8
+bandit==1.9.3
 detect-secrets==1.5.0
-pip-audit==2.7.3
+pip-audit==2.10.0       # Keep for local manual runs
 
-# Testing (if not already present)
+# Testing
 pytest>=8.0.0
 pytest-asyncio>=0.23.0
 pytest-cov>=4.1.0
