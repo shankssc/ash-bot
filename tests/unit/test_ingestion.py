@@ -23,7 +23,7 @@ def test_semantic_chunker_basic():
         text=text,
         source_id="anime_1",
         source_type="synopsis",
-        metadata={"anime_id": 1, "title": "Cowboy Bebop"},
+        meta={"anime_id": 1, "title": "Cowboy Bebop"},
     )
 
     assert len(chunks) > 0
@@ -70,9 +70,7 @@ def test_chunker_special_characters():
     chunker = SemanticChunker()
     text = "Attack on Titan (Shingeki no Kyojin) is a Japanese manga series. It's set in a world where humanity lives inside cities surrounded by enormous walls! The story follows Eren Yeager..."
 
-    chunks = chunker.chunk_text(
-        text=text, source_id="anime_16498", source_type="synopsis", metadata={}
-    )
+    chunks = chunker.chunk_text(text=text, source_id="anime_16498", source_type="synopsis", meta={})
 
     assert len(chunks) > 0
     # Verify no truncation of special characters
