@@ -5,6 +5,7 @@ Minimal ingestion pipeline: Fetch → Chunk → Embed → Save to disk.
 from __future__ import annotations
 
 import json
+import uuid
 
 from datetime import datetime
 from pathlib import Path
@@ -16,6 +17,7 @@ from app.core.config import get_settings
 from app.ingestion.embedder import EmbeddingGenerator
 from app.ingestion.processors.chunker import SemanticChunker, TextChunk
 from app.ingestion.sources.jikan_client import JikanClient
+from app.retrieval.vector_store import QdrantVectorStore, VectorPoint
 
 settings = get_settings()
 
@@ -23,10 +25,26 @@ settings = get_settings()
 class MinimalIngestionPipeline:
     """Minimal pipeline for ingesting anime data to disk."""
 
-    def __init__(self, output_dir: Path | None = None):
-        self.output_dir = output_dir or Path("data/processed/minimal_pipeline")
-        self.output_dir.mkdir(parents=True, exist_ok=True)
+    def __init__(
+        self,
+        output_dir: Path | None = None,
+        vector_store: QdrantVectorStore | None = None,
+        save_to_disk: bool = True,
+    ):
+        """
+        Initialize pipeline.
 
+        Args:
+            output_dir: Directory for disk output (if save_to_disk=True)
+            vector_store: Optional Qdrant client for cloud upload
+            save_to_disk: Whether to save results to disk (for debugging/validation)
+        """
+        self.output_dir = output_dir or Path("data/processed/minimal_pipeline")
+        if save_to_disk:
+            self.output_dir.mkdir(parents=True, exist_ok=True)
+
+        self.vector_store = vector_store
+        self.save_to_disk = save_to_disk
         self.chunker = SemanticChunker()
         self.embedder = EmbeddingGenerator()
 
@@ -40,20 +58,15 @@ class MinimalIngestionPipeline:
         Returns:
             Summary statistics
         """
-        from app.core.logging import get_logger  # Late import
+        from app.core.logging import get_logger  # Late import to avoid circular deps
 
         logger = get_logger(__name__)
-
-        logger.info(f"Starting minimal ingestion pipeline (max_anime={max_anime})")
         logger.info(f"Starting minimal ingestion pipeline (max_anime={max_anime})")
 
         start_time = datetime.now()
-
-        anime_data = []
+        anime_data: list[dict[str, Any]] = []
         chunks: list[TextChunk] = []
-        chunk_texts = []
-
-        duration = (datetime.now() - start_time).total_seconds()
+        chunk_texts: list[str] = []
 
         # Step 1: Fetch anime data
         logger.info("Step 1: Fetching anime data from Jikan API...")
@@ -83,7 +96,7 @@ class MinimalIngestionPipeline:
                 )
 
                 # Step 2: Chunk synopsis
-                if synopsis and synopsis.lower() != "no synopsis available":
+                if synopsis and synopsis.lower() not in ["no synopsis available", ""]:
                     metadata = {
                         "anime_id": anime_id,
                         "anime_title": title,
@@ -91,6 +104,7 @@ class MinimalIngestionPipeline:
                         "field": "synopsis",
                         "fetched_at": datetime.utcnow().isoformat(),
                     }
+
                     synopsis_chunks = self.chunker.chunk_text(
                         text=synopsis,
                         source_id=f"anime_{anime_id}",
@@ -109,24 +123,97 @@ class MinimalIngestionPipeline:
             embeddings = np.array([])
             embedding_metadata = []
 
-        duration = (datetime.now() - start_time).total_seconds()
+        # Step 4: Upload to Qdrant (if configured)
+        uploaded_to_qdrant = 0
+        if self.vector_store and len(chunks) > 0:
+            logger.info(f"Step 3: Uploading {len(chunks)} chunks to Qdrant...")
+            uploaded_to_qdrant = await self._upload_to_qdrant(chunks, embeddings)
+        else:
+            logger.info("Step 3: Skipping Qdrant upload (not configured or no chunks)")
 
-        # Step 4: Save to disk
-        logger.info("Step 3: Saving results to disk...")
-        self._save_results(anime_data, chunks, embeddings, embedding_metadata, duration)
+        # Step 5: Save to disk (if enabled)
+        duration = (datetime.now() - start_time).total_seconds()
+        if self.save_to_disk:
+            logger.info("Step 4: Saving results to disk...")
+            self._save_results(
+                anime_data, chunks, embeddings, embedding_metadata, duration, uploaded_to_qdrant
+            )
+        else:
+            logger.info("Step 4: Skipping disk output (save_to_disk=False)")
 
         # Return summary
         summary = {
             "anime_processed": len(anime_data),
             "chunks_created": len(chunks),
             "embeddings_generated": len(embeddings),
-            "output_dir": str(self.output_dir),
+            "uploaded_to_qdrant": uploaded_to_qdrant,
+            "saved_to_disk": self.save_to_disk,
+            "output_dir": str(self.output_dir.absolute()) if self.save_to_disk else None,
             "duration_seconds": round(duration, 2),
             "status": "success",
         }
 
-        logger.info(f"Pipeline completed successfully: {summary}")
+        logger.info(f"Pipeline completed successfully in {duration:.2f}s: {summary}")
         return summary
+
+    async def _upload_to_qdrant(
+        self,
+        chunks: list[TextChunk],
+        embeddings: np.ndarray,
+    ) -> int:
+        """Upload chunks and embeddings to Qdrant Cloud.
+
+        Returns:
+            Number of points successfully uploaded
+        """
+        from app.core.logging import get_logger
+
+        logger = get_logger(__name__)
+
+        if not self.vector_store:
+            raise RuntimeError("Vector store not initialized")
+
+        if len(chunks) != len(embeddings):
+            raise ValueError(f"Chunk count ({len(chunks)}) != embedding count ({len(embeddings)})")
+
+        # Convert chunks + embeddings to VectorPoint objects
+        vector_points: list[VectorPoint] = []
+        for chunk, embedding in zip(chunks, embeddings, strict=True):
+            # Generate deterministic UUID based on chunk content (idempotent upserts)
+            point_id = str(
+                uuid.uuid5(
+                    uuid.NAMESPACE_DNS,
+                    f"anime:{chunk.metadata['anime_id']}:chunk:{chunk.chunk_id}",
+                )
+            )
+
+            vector_points.append(
+                VectorPoint(
+                    id=point_id,
+                    vector=embedding.tolist(),
+                    payload={
+                        "text": chunk.text,
+                        "anime_id": chunk.metadata["anime_id"],
+                        "anime_title": chunk.metadata["anime_title"],
+                        "chunk_id": chunk.chunk_id,
+                        "source_type": chunk.source_type,
+                        "source": chunk.metadata.get("source", "unknown"),
+                        "field": chunk.metadata.get("field", "unknown"),
+                        "fetched_at": chunk.metadata.get(
+                            "fetched_at", datetime.utcnow().isoformat()
+                        ),
+                    },
+                )
+            )
+
+        # Upload to Qdrant
+        try:
+            await self.vector_store.upsert(vector_points)
+            logger.info(f"Successfully uploaded {len(vector_points)} points to Qdrant")
+            return len(vector_points)
+        except Exception as e:
+            logger.error(f"Failed to upload to Qdrant: {e}", exc_info=True)
+            raise
 
     def _save_results(
         self,
@@ -135,11 +222,15 @@ class MinimalIngestionPipeline:
         embeddings: np.ndarray,
         embedding_metadata: list[dict[str, Any]],
         duration_seconds: float,
-    ):
+        uploaded_to_qdrant: int,
+    ) -> None:
         """Save pipeline results to disk."""
+        if not self.save_to_disk:
+            return
+
         # Save anime metadata
-        with open(self.output_dir / "anime_metadata.json", "w") as f:
-            json.dump(anime_data, f, indent=2)
+        with open(self.output_dir / "anime_metadata.json", "w", encoding="utf-8") as f:
+            json.dump(anime_data, f, indent=2, ensure_ascii=False)
 
         # Save chunks
         chunks_data = [
@@ -161,10 +252,10 @@ class MinimalIngestionPipeline:
         np.save(self.output_dir / "embeddings.npy", embeddings)
 
         # Save embedding metadata
-        with open(self.output_dir / "embedding_metadata.json", "w") as f:
+        with open(self.output_dir / "embedding_metadata.json", "w", encoding="utf-8") as f:
             json.dump(embedding_metadata, f, indent=2)
 
-        # CREATE MANIFEST.JSON
+        # Save MANIFEST.json with upload status
         manifest = {
             "pipeline_version": settings.APP_VERSION,
             "generated_at": datetime.utcnow().isoformat(),
@@ -174,6 +265,8 @@ class MinimalIngestionPipeline:
             "embedding_shape": embeddings.shape if len(embeddings) > 0 else [0, 0],
             "embedding_model": settings.EMBEDDING_MODEL_NAME,
             "vector_size": settings.QDRANT_VECTOR_SIZE,
+            "uploaded_to_qdrant": uploaded_to_qdrant,
+            "saved_to_disk": self.save_to_disk,
         }
 
         # Save MANIFEST.json
