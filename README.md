@@ -19,7 +19,7 @@ Production-grade anime intelligence microservice built on **100% free infrastruc
 | ----- | -------------------------- | ----------- | ----------- |
 | ✅ 0  | Project Foundations        | Complete    | Week 1      |
 | ✅ 1A | Minimal Ingestion Pipeline | Complete    | Week 2      |
-| ⏳ 1B | Qdrant Integration         | Not Started | Week 3      |
+| ✅ 1B | Qdrant Integration         | Complete    | Week 3      |
 | ⏳ 2  | RAG Engine                 | Not Started | Week 3-4    |
 | ⏳ 3  | API Layer                  | Not Started | Week 4-5    |
 | ⏳ 4  | Evaluation                 | Not Started | Week 5-6    |
