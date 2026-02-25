@@ -1,7 +1,7 @@
 {
   "pipeline_version": "1.0.0",
-  "generated_at": "2026-02-25T23:09:58.342775",
-  "duration_seconds": 1.926895,
+  "generated_at": "2026-02-25T23:23:09.393669",
+  "duration_seconds": 1.544636,
   "anime_count": 3,
   "chunk_count": 10,
   "embedding_shape": [
@@ -10,6 +10,6 @@
   ],
   "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
   "vector_size": 384,
-  "uploaded_to_qdrant": 0,
+  "uploaded_to_qdrant": 10,
   "saved_to_disk": true
 }
