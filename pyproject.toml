@@ -67,6 +67,7 @@ module = [
     "numpy.*",
     "sentence_transformers.*",
     "tenacity.*",
+    "qdrant_client.*",
 ]
 ignore_missing_imports = true
 
