@@ -299,7 +299,14 @@ embeddings = np.load('embeddings.npy')
             )
 
 
-async def run_minimal_pipeline(max_anime: int = 10):
+async def run_minimal_pipeline(
+    max_anime: int = 10,
+    vector_store: QdrantVectorStore | None = None,
+    save_to_disk: bool = True,
+) -> dict[str, Any]:
     """Convenience function to run pipeline."""
-    pipeline = MinimalIngestionPipeline()
+    pipeline = MinimalIngestionPipeline(
+        vector_store=vector_store,
+        save_to_disk=save_to_disk,
+    )
     return await pipeline.run(max_anime=max_anime)

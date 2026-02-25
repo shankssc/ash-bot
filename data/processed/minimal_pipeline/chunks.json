@@ -9,7 +9,7 @@
       "anime_title": "Sousou no Frieren",
       "source": "jikan_api",
       "field": "synopsis",
-      "fetched_at": "2026-02-19T02:10:15.419445"
+      "fetched_at": "2026-02-25T23:09:57.721155"
     },
     "start_char": 0,
     "end_char": 422
@@ -24,7 +24,7 @@
       "anime_title": "Sousou no Frieren",
       "source": "jikan_api",
       "field": "synopsis",
-      "fetched_at": "2026-02-19T02:10:15.419445"
+      "fetched_at": "2026-02-25T23:09:57.721155"
     },
     "start_char": 0,
     "end_char": 558
@@ -39,7 +39,7 @@
       "anime_title": "Sousou no Frieren",
       "source": "jikan_api",
       "field": "synopsis",
-      "fetched_at": "2026-02-19T02:10:15.419445"
+      "fetched_at": "2026-02-25T23:09:57.721155"
     },
     "start_char": 0,
     "end_char": 494
@@ -54,7 +54,7 @@
       "anime_title": "Sousou no Frieren",
       "source": "jikan_api",
       "field": "synopsis",
-      "fetched_at": "2026-02-19T02:10:15.419445"
+      "fetched_at": "2026-02-25T23:09:57.721155"
     },
     "start_char": 0,
     "end_char": 410
@@ -69,54 +69,84 @@
       "anime_title": "Sousou no Frieren",
       "source": "jikan_api",
       "field": "synopsis",
-      "fetched_at": "2026-02-19T02:10:15.419445"
+      "fetched_at": "2026-02-25T23:09:57.721155"
     },
     "start_char": 0,
     "end_char": 416
   },
   {
-    "chunk_id": "anime_57555_chunk_0",
-    "text": "Despite the immediate challenges following becoming a devil hunter with the Public Safety Bureau, Denji has quickly adapted to his new life and responsibilities. As the chaos of Denji's first ordeal with Public Safety settles down, the elite devil hunter Makima decides to take Denji out on a date. Although the date strengthens his affection for Makima and he swears to not fall in love with anyone else, Denji soon finds himself in a tricky situation when he meets a seemingly innocent cafe worker named Reze.",
-    "source_id": "anime_57555",
+    "chunk_id": "anime_5114_chunk_0",
+    "text": "After a horrific alchemy experiment goes wrong in the Elric household, brothers Edward and Alphonse are left in a catastrophic new reality. Ignoring the alchemical principle banning human transmutation, the boys attempted to bring their recently deceased mother back to life. Instead, they suffered brutal personal loss: Alphonse's body disintegrated while Edward lost a leg and then sacrificed an arm to keep Alphonse's soul in the physical realm by binding it to a hulking suit of armor.",
+    "source_id": "anime_5114",
     "source_type": "synopsis",
     "metadata": {
-      "anime_id": 57555,
-      "anime_title": "Chainsaw Man Movie: Reze-hen",
+      "anime_id": 5114,
+      "anime_title": "Fullmetal Alchemist: Brotherhood",
       "source": "jikan_api",
       "field": "synopsis",
-      "fetched_at": "2026-02-19T02:10:15.420920"
+      "fetched_at": "2026-02-25T23:09:57.724229"
     },
     "start_char": 0,
-    "end_char": 511
+    "end_char": 489
   },
   {
-    "chunk_id": "anime_57555_chunk_1",
-    "text": "As the chaos of Denji's first ordeal with Public Safety settles down, the elite devil hunter Makima decides to take Denji out on a date. Although the date strengthens his affection for Makima and he swears to not fall in love with anyone else, Denji soon finds himself in a tricky situation when he meets a seemingly innocent cafe worker named Reze. With her forward and flirty demeanor, Reze immediately captures Denji's heart, driving him to frequent the cafe where she works and deepen his relationship with her.",
-    "source_id": "anime_57555",
+    "chunk_id": "anime_5114_chunk_1",
+    "text": "Ignoring the alchemical principle banning human transmutation, the boys attempted to bring their recently deceased mother back to life. Instead, they suffered brutal personal loss: Alphonse's body disintegrated while Edward lost a leg and then sacrificed an arm to keep Alphonse's soul in the physical realm by binding it to a hulking suit of armor. The brothers are rescued by their neighbor Pinako Rockbell and her granddaughter Winry.",
+    "source_id": "anime_5114",
     "source_type": "synopsis",
     "metadata": {
-      "anime_id": 57555,
-      "anime_title": "Chainsaw Man Movie: Reze-hen",
+      "anime_id": 5114,
+      "anime_title": "Fullmetal Alchemist: Brotherhood",
       "source": "jikan_api",
       "field": "synopsis",
-      "fetched_at": "2026-02-19T02:10:15.420920"
+      "fetched_at": "2026-02-25T23:09:57.724229"
     },
     "start_char": 0,
-    "end_char": 515
+    "end_char": 437
   },
   {
-    "chunk_id": "anime_57555_chunk_2",
-    "text": "Although the date strengthens his affection for Makima and he swears to not fall in love with anyone else, Denji soon finds himself in a tricky situation when he meets a seemingly innocent cafe worker named Reze. With her forward and flirty demeanor, Reze immediately captures Denji's heart, driving him to frequent the cafe where she works and deepen his relationship with her. However, Denji is completely oblivious to the fact that meeting Reze might have grave consequences beyond simply deciding which woman his heart belongs to. \n\n[Written by MAL Rewrite]",
-    "source_id": "anime_57555",
+    "chunk_id": "anime_5114_chunk_2",
+    "text": "Instead, they suffered brutal personal loss: Alphonse's body disintegrated while Edward lost a leg and then sacrificed an arm to keep Alphonse's soul in the physical realm by binding it to a hulking suit of armor. The brothers are rescued by their neighbor Pinako Rockbell and her granddaughter Winry. Known as a bio-mechanical engineering prodigy, Winry creates prosthetic limbs for Edward by utilizing \"automail,\" a tough, versatile metal used in robots and combat armor.",
+    "source_id": "anime_5114",
     "source_type": "synopsis",
     "metadata": {
-      "anime_id": 57555,
-      "anime_title": "Chainsaw Man Movie: Reze-hen",
+      "anime_id": 5114,
+      "anime_title": "Fullmetal Alchemist: Brotherhood",
       "source": "jikan_api",
       "field": "synopsis",
-      "fetched_at": "2026-02-19T02:10:15.420920"
+      "fetched_at": "2026-02-25T23:09:57.724229"
     },
     "start_char": 0,
-    "end_char": 561
+    "end_char": 473
+  },
+  {
+    "chunk_id": "anime_5114_chunk_3",
+    "text": "The brothers are rescued by their neighbor Pinako Rockbell and her granddaughter Winry. Known as a bio-mechanical engineering prodigy, Winry creates prosthetic limbs for Edward by utilizing \"automail,\" a tough, versatile metal used in robots and combat armor. After years of training, the Elric brothers set off on a quest to restore their bodies by locating the Philosopher's Stone—a powerful gem that allows an alchemist to defy the traditional laws of Equivalent Exchange.",
+    "source_id": "anime_5114",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 5114,
+      "anime_title": "Fullmetal Alchemist: Brotherhood",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-02-25T23:09:57.724229"
+    },
+    "start_char": 0,
+    "end_char": 475
+  },
+  {
+    "chunk_id": "anime_5114_chunk_4",
+    "text": "Known as a bio-mechanical engineering prodigy, Winry creates prosthetic limbs for Edward by utilizing \"automail,\" a tough, versatile metal used in robots and combat armor. After years of training, the Elric brothers set off on a quest to restore their bodies by locating the Philosopher's Stone—a powerful gem that allows an alchemist to defy the traditional laws of Equivalent Exchange. As Edward becomes an infamous alchemist and gains the nickname \"Fullmetal,\" the boys' journey embroils them in a growing conspiracy that threatens the fate of the world.\n\n[Written by MAL Rewrite]",
+    "source_id": "anime_5114",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 5114,
+      "anime_title": "Fullmetal Alchemist: Brotherhood",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-02-25T23:09:57.724229"
+    },
+    "start_char": 0,
+    "end_char": 583
   }
 ]

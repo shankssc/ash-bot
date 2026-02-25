@@ -1,13 +1,6 @@
 """CLI script to run minimal anime ingestion pipeline."""
 
-from app.ingestion.pipeline import run_minimal_pipeline
-from app.core.logging import get_logger, init_logging
-from app.core.config import settings
-from app.api.deps import get_production_vector_store
-from datetime import datetime
-import logging
-import asyncio
-import argparse
+# ruff: noqa: E402
 import sys
 from pathlib import Path
 
@@ -17,8 +10,16 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 # Standard library imports (alphabetical)
+import argparse
+import asyncio
+import logging
+from datetime import datetime
 
 # Local application imports (alphabetical) - AFTER path setup
+from app.api.deps import get_production_vector_store
+from app.core.config import settings
+from app.core.logging import get_logger, init_logging
+from app.ingestion.pipeline import run_minimal_pipeline
 
 # Initialize logging BEFORE any modules that might log
 init_logging(settings)

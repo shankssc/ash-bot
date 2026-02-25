@@ -25,17 +25,27 @@
     "dimension": 384
   },
   {
-    "text_length": 511,
+    "text_length": 489,
     "model": "sentence-transformers/all-MiniLM-L6-v2",
     "dimension": 384
   },
   {
-    "text_length": 515,
+    "text_length": 437,
     "model": "sentence-transformers/all-MiniLM-L6-v2",
     "dimension": 384
   },
   {
-    "text_length": 561,
+    "text_length": 473,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 475,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 583,
     "model": "sentence-transformers/all-MiniLM-L6-v2",
     "dimension": 384
   }

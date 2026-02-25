@@ -19,7 +19,7 @@
     "title": "Sousou no Frieren 2nd Season",
     "url": "https://myanimelist.net/anime/59978/Sousou_no_Frieren_2nd_Season",
     "image_url": "https://cdn.myanimelist.net/images/anime/1921/154528l.jpg",
-    "score": 9.2,
+    "score": 9.18,
     "type": "TV",
     "episodes": 10,
     "aired": "Jan 16, 2026 to ?",
@@ -30,16 +30,18 @@
     ]
   },
   {
-    "anime_id": 57555,
-    "title": "Chainsaw Man Movie: Reze-hen",
-    "url": "https://myanimelist.net/anime/57555/Chainsaw_Man_Movie__Reze-hen",
-    "image_url": "https://cdn.myanimelist.net/images/anime/1763/150638l.jpg",
-    "score": 9.1,
-    "type": "Movie",
-    "episodes": 1,
-    "aired": "Sep 19, 2025",
+    "anime_id": 5114,
+    "title": "Fullmetal Alchemist: Brotherhood",
+    "url": "https://myanimelist.net/anime/5114/Fullmetal_Alchemist__Brotherhood",
+    "image_url": "https://cdn.myanimelist.net/images/anime/1208/94745l.jpg",
+    "score": 9.11,
+    "type": "TV",
+    "episodes": 64,
+    "aired": "Apr 5, 2009 to Jul 4, 2010",
     "genres": [
       "Action",
+      "Adventure",
+      "Drama",
       "Fantasy"
     ]
   }
