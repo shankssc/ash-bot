@@ -87,9 +87,10 @@ class QueryClassifier:
 
     # Negative patterns that reduce confidence
     NEGATIVE_PATTERNS: ClassVar[list[tuple[str, float]]] = [
-        (r"\b(not sure|maybe|perhaps|possibly)\b", -0.2),
-        (r"\b(guess|think|believe)\b", -0.15),
-        (r"\b(confused|don't know|unsure)\b", -0.25),
+        (r"\b(not sure|maybe|perhaps|possibly|unsure)\b", -0.25),
+        (r"\b(i think|i believe|i guess|probably)\b", -0.2),
+        (r"\b(confused|don't know|no idea)\b", -0.3),
+        (r"\b(sort of|kind of|somewhat)\b", -0.15),
     ]
 
     def __init__(self):
@@ -132,7 +133,38 @@ class QueryClassifier:
                 "matched_pattern": "who directed"
             }
         """
-        query_lower = query.lower().strip()
+        if not isinstance(query, str):
+            logger.warning(f"Invalid query type: {type(query).__name__} (value: {query!r})")
+            return {
+                "intent": QueryIntent.FACTUAL.value,
+                "confidence": 0.0,
+                "method": "invalid_input",
+                "matched_pattern": None,
+                "error": "Query must be a string",
+            }
+
+        query_stripped = query.strip()
+
+        if not query_stripped:
+            logger.warning(f"Whitespace-only query rejected: {query!r}")
+            return {
+                "intent": QueryIntent.FACTUAL.value,
+                "confidence": 0.0,
+                "method": "invalid_input",
+                "matched_pattern": None,
+                "error": "Query contains only whitespace",
+            }
+
+        if len(query_stripped) < 3:
+            logger.debug(f"Short query: '{query_stripped}'")
+            return {
+                "intent": QueryIntent.FACTUAL.value,
+                "confidence": 0.3,
+                "method": "short_query",
+                "matched_pattern": None,
+            }
+
+        query_lower = query_stripped.lower()
 
         # Try specific intent patterns first (highest priority)
         for intent in [

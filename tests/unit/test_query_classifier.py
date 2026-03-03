@@ -155,6 +155,35 @@ class TestQueryClassifier:
         # Should be same instance
         assert classifier1 is classifier2
 
+    def test_empty_query(self, classifier: QueryClassifier):
+        """Test handling of empty queries."""
+        result = classifier.classify("")
+        assert result["confidence"] == 0.0
+        assert result["method"] == "invalid_input"
+
+    def test_short_query(self, classifier: QueryClassifier):
+        """Test handling of very short queries."""
+        result = classifier.classify("hi")
+        assert result["confidence"] == 0.3
+        assert result["method"] == "short_query"
+
+    def test_whitespace_query(self, classifier: QueryClassifier):
+        """Test handling of whitespace-only queries."""
+        result = classifier.classify("   ")
+        assert result["confidence"] == 0.0
+        assert result["method"] == "invalid_input"
+
+    def test_uncertainty_phrases(self, classifier: QueryClassifier):
+        """Test detection of uncertainty language."""
+        queries = [
+            "I think Cowboy Bebop was directed by...",
+            "Maybe Attack on Titan is good?",
+            "I'm not sure which anime to watch",
+        ]
+        for query in queries:
+            result = classifier.classify(query)
+            assert result["confidence"] < 0.7
+
 
 class TestQueryIntent:
     """Test QueryIntent enum."""
