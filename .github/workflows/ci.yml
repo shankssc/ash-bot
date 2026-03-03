@@ -38,12 +38,27 @@ jobs:
 
       - name: 🧪 Run tests with coverage
         run: |
-          # Create minimal .env for tests
-          echo "ENVIRONMENT=test" > .env
-          echo "OLLAMA_BASE_URL=http://localhost:11434" >> .env
+          # Create .env with test values + secrets for validation tests
+          cat > .env << EOF
+          ENVIRONMENT=test
+          QDRANT_URL=${{ secrets.QDRANT_URL || 'https://test.qdrant.io:6333' }}
+          QDRANT_API_KEY=${{ secrets.QDRANT_API_KEY || 'test-key' }}
+          REDIS_URL=${{ secrets.REDIS_URL || 'https://test.upstash.io' }}
+          REDIS_TOKEN=${{ secrets.REDIS_TOKEN || 'test-token' }}
+          GROQ_API_KEY=${{ secrets.GROQ_API_KEY || 'test-groq' }}
+          API_KEY=${{ secrets.API_KEY || 'test-api-key' }}
+          OLLAMA_BASE_URL=http://localhost:11434
+          EOF
+
           pytest tests/ -v --tb=short --cov=app --cov-report=xml --cov-report=term-missing
         env:
           ENVIRONMENT: test
+          QDRANT_URL: ${{ secrets.QDRANT_URL || 'https://test.qdrant.io:6333' }}
+          QDRANT_API_KEY: ${{ secrets.QDRANT_API_KEY || 'test-key' }}
+          REDIS_URL: ${{ secrets.REDIS_URL || 'https://test.upstash.io' }}
+          REDIS_TOKEN: ${{ secrets.REDIS_TOKEN || 'test-token' }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY || 'test-groq' }}
+          API_KEY: ${{ secrets.API_KEY || 'test-api-key' }}
 
       - name: 📊 Upload coverage to Codecov
         uses: codecov/codecov-action@v4

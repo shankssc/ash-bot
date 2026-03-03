@@ -95,6 +95,11 @@ class Settings(BaseSettings):
 
     @model_validator(mode="after")
     def _validate_and_initialize(self) -> Settings:
+        # Skip strict validation for test environment (unit tests)
+        if self.ENVIRONMENT == "test":
+            self.LOGS_PATH.mkdir(exist_ok=True)
+            return self
+
         # Production validation
         if self.ENVIRONMENT == "production":
             if "your-uuid" in self.QDRANT_URL:
@@ -105,10 +110,7 @@ class Settings(BaseSettings):
         # Create critical directories
         self.LOGS_PATH.mkdir(exist_ok=True)
         if self.VECTOR_DB_PATH:
-            # Only create if explicitly set (migration path)
             self.VECTOR_DB_PATH.mkdir(parents=True, exist_ok=True)
-            # Log deprecation warning AFTER logger is initialized (handled in app startup)
-            pass
 
         return self
 
