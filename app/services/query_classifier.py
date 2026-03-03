@@ -69,9 +69,10 @@ class QueryClassifier:
             (r"\b(roleplay|rp|as if)\b", 0.9),
         ],
         QueryIntent.META: [
+            (r"\b(about (you|yourself|me)|tell me about (you|yourself|me))\b", 0.95),
             (r"\b(what can you|how do you|what do you do)\b", 0.95),
             (r"\b(help|capabilities|features)\b", 0.9),
-            (r"\b(about you|who are you)\b", 0.95),
+            (r"\b(who are you|who am i)\b", 0.95),
         ],
     }
 
@@ -213,7 +214,9 @@ class QueryClassifier:
                 matched_text = match_result.group(0)
                 base_confidence = (
                     0.8
-                    if any(q in query for q in ["who", "what", "when", "where", "why", "how"])
+                    if any(
+                        q in query for q in ["who", "what", "when", "where", "why", "how", "which"]
+                    )
                     else 0.65
                 )
                 logger.debug(
