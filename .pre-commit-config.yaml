@@ -33,6 +33,7 @@ repos:
           - redis>=4.0.0
           - boto3>=1.26.0
           - numpy==2.4.2
+          - rank-bm25==0.2.2
 
   # Bandit - Security Scanning
   - repo: https://github.com/PyCQA/bandit

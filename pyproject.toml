@@ -68,6 +68,8 @@ module = [
     "sentence_transformers.*",
     "tenacity.*",
     "qdrant_client.*",
+    "rank_bm25",
+    "rank_bm25.*",
 ]
 ignore_missing_imports = true
 
