@@ -343,9 +343,9 @@ class QdrantVectorStore:
 
             # Execute search
             results = await asyncio.to_thread(
-                self._client.search,
+                self._client.query_points,
                 collection_name=self.collection_name,
-                query_vector=query_vector,
+                query=query_vector,
                 query_filter=query_filter,
                 limit=top_k,
                 score_threshold=score_threshold,
@@ -355,31 +355,77 @@ class QdrantVectorStore:
 
             duration = (time.time() - start_time) * 1000
             logger.debug(
-                f"Search returned {len(results)} results in {duration:.2f}ms "
+                f"Search returned {len(results.points)} results in {duration:.2f}ms "
                 f"(top_k={top_k}, filters={filters})"
             )
 
             # Convert to VectorPoint objects
             vector_points = [
                 VectorPoint(
-                    id=str(result.id),
-                    # Vectors not returned (with_vectors=False for efficiency)
-                    vector=[],
-                    payload=result.payload or {},
-                    score=result.score,
+                    id=str(point.id),
+                    vector=[],  # Vectors not returned (with_vectors=False for efficiency)
+                    payload=point.payload or {},
+                    score=point.score,
                 )
-                for result in results
+                for point in results.points
             ]
 
             return vector_points
 
-        except CircuitBreakerOpenError:
-            logger.warning("Circuit breaker blocked search operation")
+        except AttributeError as e:
+            # Fallback for older qdrant-client versions (<1.8)
+            if "query_points" in str(e):
+                logger.warning("Falling back to legacy search() API (qdrant-client <1.8)")
+                return await self._legacy_search(query_vector, top_k, score_threshold, filters)
             raise
 
         except Exception as e:
             logger.error(f"Search failed: {e}", exc_info=True)
             raise
+
+    async def _legacy_search(
+        self,
+        query_vector: list[float],
+        top_k: int = 5,
+        score_threshold: float | None = None,
+        filters: dict[str, Any] | None = None,
+    ) -> list[VectorPoint]:
+        """Fallback search implementation for qdrant-client <1.8."""
+
+        if self._client is None:
+            raise RuntimeError("Client not initialized. Call _initialize() first.")
+
+        client = self._client
+
+        query_filter = None
+        if filters:
+            must_conditions: list = []
+            for key, value in filters.items():
+                must_conditions.append(
+                    rest.FieldCondition(key=key, match=rest.MatchValue(value=value))
+                )
+            query_filter = rest.Filter(must=must_conditions)
+
+        results = await asyncio.to_thread(
+            client.search,
+            collection_name=self.collection_name,
+            query_vector=query_vector,
+            query_filter=query_filter,
+            limit=top_k,
+            score_threshold=score_threshold,
+            with_payload=True,
+            with_vectors=False,
+        )
+
+        return [
+            VectorPoint(
+                id=str(r.id),
+                vector=[],
+                payload=r.payload or {},
+                score=r.score,
+            )
+            for r in results
+        ]
 
     async def health_check(self) -> dict[str, Any]:
         """

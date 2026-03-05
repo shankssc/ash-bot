@@ -132,15 +132,18 @@ class TestQdrantVectorStore:
 
         with patch.object(vector_store, "_initialize", new_callable=AsyncMock):
             with patch.object(vector_store, "_client") as mock_client:
-                mock_client.search = MagicMock(return_value=[])
+                mock_response = MagicMock()
+                mock_response.points = []
+                mock_client.query_points = MagicMock(return_value=mock_response)
 
                 await vector_store.search(
                     query_vector=[0.1] * 384, filters={"anime_id": 5114, "type": "tv"}
                 )
 
-                # Verify Filter was constructed
-                call_kwargs = mock_client.search.call_args[1]
+                call_kwargs = mock_client.query_points.call_args[1]
                 assert isinstance(call_kwargs["query_filter"], rest.Filter)
+                assert call_kwargs["query"] == [0.1] * 384
+                assert call_kwargs["limit"] == 5
 
     @pytest.mark.asyncio
     async def test_health_check_success(self, vector_store):

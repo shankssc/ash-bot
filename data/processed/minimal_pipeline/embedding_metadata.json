@@ -25,6 +25,21 @@
     "dimension": 384
   },
   {
+    "text_length": 462,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 468,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 554,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
     "text_length": 489,
     "model": "sentence-transformers/all-MiniLM-L6-v2",
     "dimension": 384
@@ -46,6 +61,321 @@
   },
   {
     "text_length": 583,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 511,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 515,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 561,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 458,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 564,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 537,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 477,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 482,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 399,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 476,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 454,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 480,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 377,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 437,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 488,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 544,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 483,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 436,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 489,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 473,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 417,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 409,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 504,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 360,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 420,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 371,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 514,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 507,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 513,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 590,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 480,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 393,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 489,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 279,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 561,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 788,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 683,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 446,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 552,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 532,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 583,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 357,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 520,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 554,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 446,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 475,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 451,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 527,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 502,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 491,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 412,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 417,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 435,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 383,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 488,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 408,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 495,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 452,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 698,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 418,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 397,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 324,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "dimension": 384
+  },
+  {
+    "text_length": 426,
     "model": "sentence-transformers/all-MiniLM-L6-v2",
     "dimension": 384
   }

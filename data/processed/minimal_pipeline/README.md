@@ -1,9 +1,9 @@
 # Minimal Ingestion Pipeline Output
 
 Generated on: 1.0.0
-Duration: 1.54 seconds
-Anime processed: 3
-Chunks created: 10
+Duration: 3.73 seconds
+Anime processed: 20
+Chunks created: 76
 Embedding dimension: 384
 
 ## Files

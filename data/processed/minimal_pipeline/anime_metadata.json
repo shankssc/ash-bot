@@ -3,7 +3,7 @@
     "anime_id": 52991,
     "title": "Sousou no Frieren",
     "url": "https://myanimelist.net/anime/52991/Sousou_no_Frieren",
-    "image_url": "https://cdn.myanimelist.net/images/anime/1015/138006l.jpg",
+    "image_url": "https://myanimelist.net/images/anime/1015/138006l.jpg",
     "score": 9.28,
     "type": "TV",
     "episodes": 28,
@@ -18,11 +18,11 @@
     "anime_id": 59978,
     "title": "Sousou no Frieren 2nd Season",
     "url": "https://myanimelist.net/anime/59978/Sousou_no_Frieren_2nd_Season",
-    "image_url": "https://cdn.myanimelist.net/images/anime/1921/154528l.jpg",
-    "score": 9.18,
+    "image_url": "https://myanimelist.net/images/anime/1921/154528l.jpg",
+    "score": 9.16,
     "type": "TV",
     "episodes": 10,
-    "aired": "Jan 16, 2026 to ?",
+    "aired": "Jan 16, 2026 to Mar 27, 2026",
     "genres": [
       "Adventure",
       "Drama",
@@ -33,7 +33,7 @@
     "anime_id": 5114,
     "title": "Fullmetal Alchemist: Brotherhood",
     "url": "https://myanimelist.net/anime/5114/Fullmetal_Alchemist__Brotherhood",
-    "image_url": "https://cdn.myanimelist.net/images/anime/1208/94745l.jpg",
+    "image_url": "https://myanimelist.net/images/anime/1208/94745l.jpg",
     "score": 9.11,
     "type": "TV",
     "episodes": 64,
@@ -43,6 +43,257 @@
       "Adventure",
       "Drama",
       "Fantasy"
+    ]
+  },
+  {
+    "anime_id": 57555,
+    "title": "Chainsaw Man Movie: Reze-hen",
+    "url": "https://myanimelist.net/anime/57555/Chainsaw_Man_Movie__Reze-hen",
+    "image_url": "https://myanimelist.net/images/anime/1763/150638l.jpg",
+    "score": 9.09,
+    "type": "Movie",
+    "episodes": 1,
+    "aired": "Sep 19, 2025",
+    "genres": [
+      "Action",
+      "Fantasy"
+    ]
+  },
+  {
+    "anime_id": 9253,
+    "title": "Steins;Gate",
+    "url": "https://myanimelist.net/anime/9253/Steins_Gate",
+    "image_url": "https://myanimelist.net/images/anime/1935/127974l.jpg",
+    "score": 9.07,
+    "type": "TV",
+    "episodes": 24,
+    "aired": "Apr 6, 2011 to Sep 14, 2011",
+    "genres": [
+      "Drama",
+      "Sci-Fi",
+      "Suspense"
+    ]
+  },
+  {
+    "anime_id": 38524,
+    "title": "Shingeki no Kyojin Season 3 Part 2",
+    "url": "https://myanimelist.net/anime/38524/Shingeki_no_Kyojin_Season_3_Part_2",
+    "image_url": "https://myanimelist.net/images/anime/1517/100633l.jpg",
+    "score": 9.05,
+    "type": "TV",
+    "episodes": 10,
+    "aired": "Apr 29, 2019 to Jul 1, 2019",
+    "genres": [
+      "Action",
+      "Drama",
+      "Suspense"
+    ]
+  },
+  {
+    "anime_id": 28977,
+    "title": "Gintama°",
+    "url": "https://myanimelist.net/anime/28977/Gintama°",
+    "image_url": "https://myanimelist.net/images/anime/3/72078l.jpg",
+    "score": 9.05,
+    "type": "TV",
+    "episodes": 51,
+    "aired": "Apr 8, 2015 to Mar 30, 2016",
+    "genres": [
+      "Action",
+      "Comedy",
+      "Sci-Fi"
+    ]
+  },
+  {
+    "anime_id": 39486,
+    "title": "Gintama: The Final",
+    "url": "https://myanimelist.net/anime/39486/Gintama__The_Final",
+    "image_url": "https://myanimelist.net/images/anime/1245/116760l.jpg",
+    "score": 9.05,
+    "type": "Movie",
+    "episodes": 1,
+    "aired": "Jan 8, 2021",
+    "genres": [
+      "Action",
+      "Comedy",
+      "Drama",
+      "Sci-Fi"
+    ]
+  },
+  {
+    "anime_id": 11061,
+    "title": "Hunter x Hunter (2011)",
+    "url": "https://myanimelist.net/anime/11061/Hunter_x_Hunter_2011",
+    "image_url": "https://myanimelist.net/images/anime/1337/99013l.jpg",
+    "score": 9.03,
+    "type": "TV",
+    "episodes": 148,
+    "aired": "Oct 2, 2011 to Sep 24, 2014",
+    "genres": [
+      "Action",
+      "Adventure",
+      "Fantasy"
+    ]
+  },
+  {
+    "anime_id": 60022,
+    "title": "One Piece Fan Letter",
+    "url": "https://myanimelist.net/anime/60022/One_Piece_Fan_Letter",
+    "image_url": "https://myanimelist.net/images/anime/1455/146229l.jpg",
+    "score": 9.02,
+    "type": "TV Special",
+    "episodes": 1,
+    "aired": "Oct 20, 2024",
+    "genres": [
+      "Action",
+      "Adventure",
+      "Fantasy"
+    ]
+  },
+  {
+    "anime_id": 9969,
+    "title": "Gintama'",
+    "url": "https://myanimelist.net/anime/9969/Gintama",
+    "image_url": "https://myanimelist.net/images/anime/4/50361l.jpg",
+    "score": 9.02,
+    "type": "TV",
+    "episodes": 51,
+    "aired": "Apr 4, 2011 to Mar 26, 2012",
+    "genres": [
+      "Action",
+      "Comedy",
+      "Sci-Fi"
+    ]
+  },
+  {
+    "anime_id": 15417,
+    "title": "Gintama': Enchousen",
+    "url": "https://myanimelist.net/anime/15417/Gintama__Enchousen",
+    "image_url": "https://myanimelist.net/images/anime/1452/123686l.jpg",
+    "score": 9.02,
+    "type": "TV",
+    "episodes": 13,
+    "aired": "Oct 4, 2012 to Mar 28, 2013",
+    "genres": [
+      "Action",
+      "Comedy",
+      "Sci-Fi"
+    ]
+  },
+  {
+    "anime_id": 820,
+    "title": "Ginga Eiyuu Densetsu",
+    "url": "https://myanimelist.net/anime/820/Ginga_Eiyuu_Densetsu",
+    "image_url": "https://myanimelist.net/images/anime/1976/142016l.jpg",
+    "score": 9.02,
+    "type": "OVA",
+    "episodes": 110,
+    "aired": "Jan 8, 1988 to Mar 17, 1997",
+    "genres": [
+      "Drama",
+      "Sci-Fi"
+    ]
+  },
+  {
+    "anime_id": 34096,
+    "title": "Gintama.",
+    "url": "https://myanimelist.net/anime/34096/Gintama",
+    "image_url": "https://myanimelist.net/images/anime/3/83528l.jpg",
+    "score": 8.98,
+    "type": "TV",
+    "episodes": 12,
+    "aired": "Jan 9, 2017 to Mar 27, 2017",
+    "genres": [
+      "Action",
+      "Comedy",
+      "Sci-Fi"
+    ]
+  },
+  {
+    "anime_id": 41467,
+    "title": "Bleach: Sennen Kessen-hen",
+    "url": "https://myanimelist.net/anime/41467/Bleach__Sennen_Kessen-hen",
+    "image_url": "https://myanimelist.net/images/anime/1908/135431l.jpg",
+    "score": 8.98,
+    "type": "TV",
+    "episodes": 13,
+    "aired": "Oct 11, 2022 to Dec 27, 2022",
+    "genres": [
+      "Action",
+      "Adventure",
+      "Supernatural"
+    ]
+  },
+  {
+    "anime_id": 43608,
+    "title": "Kaguya-sama wa Kokurasetai: Ultra Romantic",
+    "url": "https://myanimelist.net/anime/43608/Kaguya-sama_wa_Kokurasetai__Ultra_Romantic",
+    "image_url": "https://myanimelist.net/images/anime/1160/122627l.jpg",
+    "score": 8.96,
+    "type": "TV",
+    "episodes": 13,
+    "aired": "Apr 9, 2022 to Jun 25, 2022",
+    "genres": [
+      "Comedy",
+      "Romance"
+    ]
+  },
+  {
+    "anime_id": 42938,
+    "title": "Fruits Basket: The Final",
+    "url": "https://myanimelist.net/anime/42938/Fruits_Basket__The_Final",
+    "image_url": "https://myanimelist.net/images/anime/1085/114792l.jpg",
+    "score": 8.94,
+    "type": "TV",
+    "episodes": 13,
+    "aired": "Apr 6, 2021 to Jun 29, 2021",
+    "genres": [
+      "Drama",
+      "Romance",
+      "Supernatural"
+    ]
+  },
+  {
+    "anime_id": 4181,
+    "title": "Clannad: After Story",
+    "url": "https://myanimelist.net/anime/4181/Clannad__After_Story",
+    "image_url": "https://myanimelist.net/images/anime/1299/110774l.jpg",
+    "score": 8.93,
+    "type": "TV",
+    "episodes": 24,
+    "aired": "Oct 3, 2008 to Mar 27, 2009",
+    "genres": [
+      "Drama",
+      "Romance"
+    ]
+  },
+  {
+    "anime_id": 918,
+    "title": "Gintama",
+    "url": "https://myanimelist.net/anime/918/Gintama",
+    "image_url": "https://myanimelist.net/images/anime/10/73274l.jpg",
+    "score": 8.93,
+    "type": "TV",
+    "episodes": 201,
+    "aired": "Apr 4, 2006 to Mar 25, 2010",
+    "genres": [
+      "Action",
+      "Comedy",
+      "Sci-Fi"
+    ]
+  },
+  {
+    "anime_id": 28851,
+    "title": "Koe no Katachi",
+    "url": "https://myanimelist.net/anime/28851/Koe_no_Katachi",
+    "image_url": "https://myanimelist.net/images/anime/1122/96435l.jpg",
+    "score": 8.93,
+    "type": "Movie",
+    "episodes": 1,
+    "aired": "Sep 17, 2016",
+    "genres": [
+      "Award Winning",
+      "Drama"
     ]
   }
 ]

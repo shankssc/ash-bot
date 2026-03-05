@@ -9,7 +9,7 @@
       "anime_title": "Sousou no Frieren",
       "source": "jikan_api",
       "field": "synopsis",
-      "fetched_at": "2026-02-25T23:23:08.999260"
+      "fetched_at": "2026-03-04T23:57:30.421862"
     },
     "start_char": 0,
     "end_char": 422
@@ -24,7 +24,7 @@
       "anime_title": "Sousou no Frieren",
       "source": "jikan_api",
       "field": "synopsis",
-      "fetched_at": "2026-02-25T23:23:08.999260"
+      "fetched_at": "2026-03-04T23:57:30.421862"
     },
     "start_char": 0,
     "end_char": 558
@@ -39,7 +39,7 @@
       "anime_title": "Sousou no Frieren",
       "source": "jikan_api",
       "field": "synopsis",
-      "fetched_at": "2026-02-25T23:23:08.999260"
+      "fetched_at": "2026-03-04T23:57:30.421862"
     },
     "start_char": 0,
     "end_char": 494
@@ -54,7 +54,7 @@
       "anime_title": "Sousou no Frieren",
       "source": "jikan_api",
       "field": "synopsis",
-      "fetched_at": "2026-02-25T23:23:08.999260"
+      "fetched_at": "2026-03-04T23:57:30.421862"
     },
     "start_char": 0,
     "end_char": 410
@@ -69,10 +69,55 @@
       "anime_title": "Sousou no Frieren",
       "source": "jikan_api",
       "field": "synopsis",
-      "fetched_at": "2026-02-25T23:23:08.999260"
+      "fetched_at": "2026-03-04T23:57:30.421862"
     },
     "start_char": 0,
     "end_char": 416
+  },
+  {
+    "chunk_id": "anime_59978_chunk_0",
+    "text": "Following the First-Class Mage Exam, the trio—elven mage Frieren, warrior Stark, and first-class mage Fern—gains access to the dangerous Northern Plateau. As the party presses onward toward Aureole, formidable adversaries force Stark to confront his insecurities, solidifying his resolve and his role as the party's frontliner. Meanwhile, Fern continues to cherish the gifts she has been blessed with throughout her life, each a reminder of those she holds dear.",
+    "source_id": "anime_59978",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 59978,
+      "anime_title": "Sousou no Frieren 2nd Season",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.422865"
+    },
+    "start_char": 0,
+    "end_char": 462
+  },
+  {
+    "chunk_id": "anime_59978_chunk_1",
+    "text": "As the party presses onward toward Aureole, formidable adversaries force Stark to confront his insecurities, solidifying his resolve and his role as the party's frontliner. Meanwhile, Fern continues to cherish the gifts she has been blessed with throughout her life, each a reminder of those she holds dear. Frieren—still honoring her vow to understand humanity—revisits memories of her journey with the Hero's party and her fleeting encounter with a legendary figure.",
+    "source_id": "anime_59978",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 59978,
+      "anime_title": "Sousou no Frieren 2nd Season",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.422865"
+    },
+    "start_char": 0,
+    "end_char": 468
+  },
+  {
+    "chunk_id": "anime_59978_chunk_2",
+    "text": "Meanwhile, Fern continues to cherish the gifts she has been blessed with throughout her life, each a reminder of those she holds dear. Frieren—still honoring her vow to understand humanity—revisits memories of her journey with the Hero's party and her fleeting encounter with a legendary figure. As she reflects on the passage of time, the elven mage quietly questions whether she has truly changed, yet in the small, almost subtle choices that she makes, there are signs that she might have become more human than she realizes.\n\n[Written by MAL Rewrite]",
+    "source_id": "anime_59978",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 59978,
+      "anime_title": "Sousou no Frieren 2nd Season",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.422865"
+    },
+    "start_char": 0,
+    "end_char": 554
   },
   {
     "chunk_id": "anime_5114_chunk_0",
@@ -84,7 +129,7 @@
       "anime_title": "Fullmetal Alchemist: Brotherhood",
       "source": "jikan_api",
       "field": "synopsis",
-      "fetched_at": "2026-02-25T23:23:09.000272"
+      "fetched_at": "2026-03-04T23:57:30.422865"
     },
     "start_char": 0,
     "end_char": 489
@@ -99,7 +144,7 @@
       "anime_title": "Fullmetal Alchemist: Brotherhood",
       "source": "jikan_api",
       "field": "synopsis",
-      "fetched_at": "2026-02-25T23:23:09.000272"
+      "fetched_at": "2026-03-04T23:57:30.422865"
     },
     "start_char": 0,
     "end_char": 437
@@ -114,7 +159,7 @@
       "anime_title": "Fullmetal Alchemist: Brotherhood",
       "source": "jikan_api",
       "field": "synopsis",
-      "fetched_at": "2026-02-25T23:23:09.000272"
+      "fetched_at": "2026-03-04T23:57:30.422865"
     },
     "start_char": 0,
     "end_char": 473
@@ -129,7 +174,7 @@
       "anime_title": "Fullmetal Alchemist: Brotherhood",
       "source": "jikan_api",
       "field": "synopsis",
-      "fetched_at": "2026-02-25T23:23:09.000272"
+      "fetched_at": "2026-03-04T23:57:30.422865"
     },
     "start_char": 0,
     "end_char": 475
@@ -144,9 +189,954 @@
       "anime_title": "Fullmetal Alchemist: Brotherhood",
       "source": "jikan_api",
       "field": "synopsis",
-      "fetched_at": "2026-02-25T23:23:09.000272"
+      "fetched_at": "2026-03-04T23:57:30.422865"
     },
     "start_char": 0,
     "end_char": 583
+  },
+  {
+    "chunk_id": "anime_57555_chunk_0",
+    "text": "Despite the immediate challenges following becoming a devil hunter with the Public Safety Bureau, Denji has quickly adapted to his new life and responsibilities. As the chaos of Denji's first ordeal with Public Safety settles down, the elite devil hunter Makima decides to take Denji out on a date. Although the date strengthens his affection for Makima and he swears to not fall in love with anyone else, Denji soon finds himself in a tricky situation when he meets a seemingly innocent cafe worker named Reze.",
+    "source_id": "anime_57555",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 57555,
+      "anime_title": "Chainsaw Man Movie: Reze-hen",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.424369"
+    },
+    "start_char": 0,
+    "end_char": 511
+  },
+  {
+    "chunk_id": "anime_57555_chunk_1",
+    "text": "As the chaos of Denji's first ordeal with Public Safety settles down, the elite devil hunter Makima decides to take Denji out on a date. Although the date strengthens his affection for Makima and he swears to not fall in love with anyone else, Denji soon finds himself in a tricky situation when he meets a seemingly innocent cafe worker named Reze. With her forward and flirty demeanor, Reze immediately captures Denji's heart, driving him to frequent the cafe where she works and deepen his relationship with her.",
+    "source_id": "anime_57555",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 57555,
+      "anime_title": "Chainsaw Man Movie: Reze-hen",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.424369"
+    },
+    "start_char": 0,
+    "end_char": 515
+  },
+  {
+    "chunk_id": "anime_57555_chunk_2",
+    "text": "Although the date strengthens his affection for Makima and he swears to not fall in love with anyone else, Denji soon finds himself in a tricky situation when he meets a seemingly innocent cafe worker named Reze. With her forward and flirty demeanor, Reze immediately captures Denji's heart, driving him to frequent the cafe where she works and deepen his relationship with her. However, Denji is completely oblivious to the fact that meeting Reze might have grave consequences beyond simply deciding which woman his heart belongs to. \n\n[Written by MAL Rewrite]",
+    "source_id": "anime_57555",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 57555,
+      "anime_title": "Chainsaw Man Movie: Reze-hen",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.424369"
+    },
+    "start_char": 0,
+    "end_char": 561
+  },
+  {
+    "chunk_id": "anime_9253_chunk_0",
+    "text": "Eccentric scientist Rintarou Okabe has a never-ending thirst for scientific exploration. Together with his ditzy but well-meaning friend Mayuri Shiina and his roommate Itaru Hashida, Okabe founds the Future Gadget Laboratory in the hopes of creating technological innovations that baffle the human psyche. Despite claims of grandeur, the only notable \"gadget\" the trio have created is a microwave that has the mystifying power to turn bananas into green goo.",
+    "source_id": "anime_9253",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 9253,
+      "anime_title": "Steins;Gate",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.424369"
+    },
+    "start_char": 0,
+    "end_char": 458
+  },
+  {
+    "chunk_id": "anime_9253_chunk_1",
+    "text": "Together with his ditzy but well-meaning friend Mayuri Shiina and his roommate Itaru Hashida, Okabe founds the Future Gadget Laboratory in the hopes of creating technological innovations that baffle the human psyche. Despite claims of grandeur, the only notable \"gadget\" the trio have created is a microwave that has the mystifying power to turn bananas into green goo. However, when Okabe attends a conference on time travel, he experiences a series of strange events that lead him to believe that there is more to the \"Phone Microwave\" gadget than meets the eye.",
+    "source_id": "anime_9253",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 9253,
+      "anime_title": "Steins;Gate",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.424369"
+    },
+    "start_char": 0,
+    "end_char": 564
+  },
+  {
+    "chunk_id": "anime_9253_chunk_2",
+    "text": "Despite claims of grandeur, the only notable \"gadget\" the trio have created is a microwave that has the mystifying power to turn bananas into green goo. However, when Okabe attends a conference on time travel, he experiences a series of strange events that lead him to believe that there is more to the \"Phone Microwave\" gadget than meets the eye. Apparently able to send text messages into the past using the microwave, Okabe dabbles further with the \"time machine,\" attracting the ire and attention of the mysterious organization SERN.",
+    "source_id": "anime_9253",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 9253,
+      "anime_title": "Steins;Gate",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.424369"
+    },
+    "start_char": 0,
+    "end_char": 537
+  },
+  {
+    "chunk_id": "anime_9253_chunk_3",
+    "text": "However, when Okabe attends a conference on time travel, he experiences a series of strange events that lead him to believe that there is more to the \"Phone Microwave\" gadget than meets the eye. Apparently able to send text messages into the past using the microwave, Okabe dabbles further with the \"time machine,\" attracting the ire and attention of the mysterious organization SERN. Due to the novel discovery, Okabe and his friends find themselves in an ever-present danger.",
+    "source_id": "anime_9253",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 9253,
+      "anime_title": "Steins;Gate",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.424369"
+    },
+    "start_char": 0,
+    "end_char": 477
+  },
+  {
+    "chunk_id": "anime_9253_chunk_4",
+    "text": "Apparently able to send text messages into the past using the microwave, Okabe dabbles further with the \"time machine,\" attracting the ire and attention of the mysterious organization SERN. Due to the novel discovery, Okabe and his friends find themselves in an ever-present danger. As he works to mitigate the damage his invention has caused to the timeline, Okabe fights a battle to not only save his loved ones but also to preserve his degrading sanity.\n\n[Written by MAL Rewrite]",
+    "source_id": "anime_9253",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 9253,
+      "anime_title": "Steins;Gate",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.424369"
+    },
+    "start_char": 0,
+    "end_char": 482
+  },
+  {
+    "chunk_id": "anime_38524_chunk_0",
+    "text": "Seeking to restore humanity's diminishing hope, the Survey Corps embark on a mission to retake Wall Maria, where the battle against the merciless \"Titans\" takes the stage once again. Returning to the tattered Shiganshina District that was once his home, Eren Yeager and the Corps find the town oddly unoccupied by Titans. Even after the outer gate is plugged, they strangely encounter no opposition.",
+    "source_id": "anime_38524",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 38524,
+      "anime_title": "Shingeki no Kyojin Season 3 Part 2",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.426410"
+    },
+    "start_char": 0,
+    "end_char": 399
+  },
+  {
+    "chunk_id": "anime_38524_chunk_1",
+    "text": "Returning to the tattered Shiganshina District that was once his home, Eren Yeager and the Corps find the town oddly unoccupied by Titans. Even after the outer gate is plugged, they strangely encounter no opposition. The mission progresses smoothly until Armin Arlert, highly suspicious of the enemy's absence, discovers distressing signs of a potential scheme against them. Shingeki no Kyojin Season 3 Part 2 follows Eren as he vows to take back everything that was once his.",
+    "source_id": "anime_38524",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 38524,
+      "anime_title": "Shingeki no Kyojin Season 3 Part 2",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.426410"
+    },
+    "start_char": 0,
+    "end_char": 476
+  },
+  {
+    "chunk_id": "anime_38524_chunk_2",
+    "text": "The mission progresses smoothly until Armin Arlert, highly suspicious of the enemy's absence, discovers distressing signs of a potential scheme against them. Shingeki no Kyojin Season 3 Part 2 follows Eren as he vows to take back everything that was once his. Alongside him, the Survey Corps strive—through countless sacrifices—to carve a path towards victory and uncover the secrets locked away in the Yeager family's basement.\n\n[Written by MAL Rewrite]",
+    "source_id": "anime_38524",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 38524,
+      "anime_title": "Shingeki no Kyojin Season 3 Part 2",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.426410"
+    },
+    "start_char": 0,
+    "end_char": 454
+  },
+  {
+    "chunk_id": "anime_28977_chunk_0",
+    "text": "Gintoki, Shinpachi, and Kagura return as the fun-loving but broke members of the Yorozuya team! Living in an alternate-reality Edo, where swords are prohibited and alien overlords have conquered Japan, they try to thrive on doing whatever work they can get their hands on. However, Shinpachi and Kagura still haven't been paid… Does Gin-chan really spend all that cash playing pachinko? Meanwhile, when Gintoki drunkenly staggers home one night, an alien spaceship crashes nearby.",
+    "source_id": "anime_28977",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 28977,
+      "anime_title": "Gintama°",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.428408"
+    },
+    "start_char": 0,
+    "end_char": 480
+  },
+  {
+    "chunk_id": "anime_28977_chunk_1",
+    "text": "However, Shinpachi and Kagura still haven't been paid… Does Gin-chan really spend all that cash playing pachinko? Meanwhile, when Gintoki drunkenly staggers home one night, an alien spaceship crashes nearby. A fatally injured crew member emerges from the ship and gives Gintoki a strange, clock-shaped device, warning him that it is incredibly powerful and must be safeguarded.",
+    "source_id": "anime_28977",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 28977,
+      "anime_title": "Gintama°",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.428408"
+    },
+    "start_char": 0,
+    "end_char": 377
+  },
+  {
+    "chunk_id": "anime_28977_chunk_2",
+    "text": "Meanwhile, when Gintoki drunkenly staggers home one night, an alien spaceship crashes nearby. A fatally injured crew member emerges from the ship and gives Gintoki a strange, clock-shaped device, warning him that it is incredibly powerful and must be safeguarded. Mistaking it for his alarm clock, Gintoki proceeds to smash the device the next morning and suddenly discovers that the world outside his apartment has come to a standstill.",
+    "source_id": "anime_28977",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 28977,
+      "anime_title": "Gintama°",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.428408"
+    },
+    "start_char": 0,
+    "end_char": 437
+  },
+  {
+    "chunk_id": "anime_28977_chunk_3",
+    "text": "A fatally injured crew member emerges from the ship and gives Gintoki a strange, clock-shaped device, warning him that it is incredibly powerful and must be safeguarded. Mistaking it for his alarm clock, Gintoki proceeds to smash the device the next morning and suddenly discovers that the world outside his apartment has come to a standstill. With Kagura and Shinpachi at his side, he sets off to get the device fixed; though, as usual, nothing is ever that simple for the Yorozuya team.",
+    "source_id": "anime_28977",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 28977,
+      "anime_title": "Gintama°",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.428408"
+    },
+    "start_char": 0,
+    "end_char": 488
+  },
+  {
+    "chunk_id": "anime_28977_chunk_4",
+    "text": "Mistaking it for his alarm clock, Gintoki proceeds to smash the device the next morning and suddenly discovers that the world outside his apartment has come to a standstill. With Kagura and Shinpachi at his side, he sets off to get the device fixed; though, as usual, nothing is ever that simple for the Yorozuya team. Filled with tongue-in-cheek humor and moments of heartfelt emotion, Gintama's fourth season finds Gintoki and his friends facing both their most hilarious misadventures and most dangerous crises yet.\n\n[Written by MAL Rewrite]",
+    "source_id": "anime_28977",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 28977,
+      "anime_title": "Gintama°",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.428408"
+    },
+    "start_char": 0,
+    "end_char": 544
+  },
+  {
+    "chunk_id": "anime_39486_chunk_0",
+    "text": "Two years have passed following the Tendoshuu's invasion of the O-Edo Central Terminal. Since then, the Yorozuya have gone their separate ways. Foreseeing Utsuro's return, Gintoki Sakata begins surveying Earth's ley lines for traces of the other man's Altana. After an encounter with the remnants of the Tendoshuu—who continue to press on in search of immortality—Gintoki returns to Edo. Later, the regrouped Shinsengumi and Yorozuya begin an attack on the occupied Central Terminal.",
+    "source_id": "anime_39486",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 39486,
+      "anime_title": "Gintama: The Final",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.431404"
+    },
+    "start_char": 0,
+    "end_char": 483
+  },
+  {
+    "chunk_id": "anime_39486_chunk_1",
+    "text": "After an encounter with the remnants of the Tendoshuu—who continue to press on in search of immortality—Gintoki returns to Edo. Later, the regrouped Shinsengumi and Yorozuya begin an attack on the occupied Central Terminal. With the Altana harvested by the wreckage of the Tendoshuu's ship in danger of detonating, the Yorozuya and their allies fight their enemies while the safety of Edo—and the rest of the world—hangs in the balance.",
+    "source_id": "anime_39486",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 39486,
+      "anime_title": "Gintama: The Final",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.431404"
+    },
+    "start_char": 0,
+    "end_char": 436
+  },
+  {
+    "chunk_id": "anime_39486_chunk_2",
+    "text": "Later, the regrouped Shinsengumi and Yorozuya begin an attack on the occupied Central Terminal. With the Altana harvested by the wreckage of the Tendoshuu's ship in danger of detonating, the Yorozuya and their allies fight their enemies while the safety of Edo—and the rest of the world—hangs in the balance. Fulfilling the wishes of their teacher, Shouyou Yoshida's former students unite and relive their pasts one final time in an attempt to save their futures.\n\n[Written by MAL Rewrite]",
+    "source_id": "anime_39486",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 39486,
+      "anime_title": "Gintama: The Final",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.431404"
+    },
+    "start_char": 0,
+    "end_char": 489
+  },
+  {
+    "chunk_id": "anime_11061_chunk_0",
+    "text": "Hunters devote themselves to accomplishing hazardous tasks, all from traversing the world's uncharted territories to locating rare items and monsters. Before becoming a Hunter, one must pass the Hunter Examination—a high-risk selection process in which most applicants end up handicapped or worse, deceased. Ambitious participants who challenge the notorious exam carry their own reason. What drives 12-year-old Gon Freecss is finding Ging, his father and a Hunter himself.",
+    "source_id": "anime_11061",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 11061,
+      "anime_title": "Hunter x Hunter (2011)",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.433413"
+    },
+    "start_char": 0,
+    "end_char": 473
+  },
+  {
+    "chunk_id": "anime_11061_chunk_1",
+    "text": "Ambitious participants who challenge the notorious exam carry their own reason. What drives 12-year-old Gon Freecss is finding Ging, his father and a Hunter himself. Believing that he will meet his father by becoming a Hunter, Gon takes the first step to walk the same path. During the Hunter Examination, Gon befriends the medical student Leorio Paladiknight, the vindictive Kurapika, and ex-assassin Killua Zoldyck.",
+    "source_id": "anime_11061",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 11061,
+      "anime_title": "Hunter x Hunter (2011)",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.433413"
+    },
+    "start_char": 0,
+    "end_char": 417
+  },
+  {
+    "chunk_id": "anime_11061_chunk_2",
+    "text": "Believing that he will meet his father by becoming a Hunter, Gon takes the first step to walk the same path. During the Hunter Examination, Gon befriends the medical student Leorio Paladiknight, the vindictive Kurapika, and ex-assassin Killua Zoldyck. While their motives vastly differ from each other, they band together for a common goal and begin to venture into a perilous world.\n\n[Written by MAL Rewrite]",
+    "source_id": "anime_11061",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 11061,
+      "anime_title": "Hunter x Hunter (2011)",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.433413"
+    },
+    "start_char": 0,
+    "end_char": 409
+  },
+  {
+    "chunk_id": "anime_60022_chunk_0",
+    "text": "Although the golden age of piracy is about to reach new heights, most people do not seek the glory of finding the elusive One Piece—a treasure signifying a new conqueror of all seas that was once embodied by the legendary King of the Pirates, Gol D. Roger. However, even if civilians generally despise pirates, they secretly cheer for at least one of them. One red-headed girl from Sabaody Archipelago is no exception: She reveres Nami, the ingenious female navigator of Monkey D. Luffy's Straw Hat crew.",
+    "source_id": "anime_60022",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 60022,
+      "anime_title": "One Piece Fan Letter",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.435946"
+    },
+    "start_char": 0,
+    "end_char": 504
+  },
+  {
+    "chunk_id": "anime_60022_chunk_1",
+    "text": "One red-headed girl from Sabaody Archipelago is no exception: She reveres Nami, the ingenious female navigator of Monkey D. Luffy's Straw Hat crew. Determined to deliver a fan letter to her idol, the Sabaody child is prepared to challenge forces of authority who strive to prevent Luffy and his friends from departing for their next destination: the New World.",
+    "source_id": "anime_60022",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 60022,
+      "anime_title": "One Piece Fan Letter",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.435946"
+    },
+    "start_char": 0,
+    "end_char": 360
+  },
+  {
+    "chunk_id": "anime_60022_chunk_2",
+    "text": "Luffy's Straw Hat crew. Determined to deliver a fan letter to her idol, the Sabaody child is prepared to challenge forces of authority who strive to prevent Luffy and his friends from departing for their next destination: the New World. But to succeed, Nami's fan may need to risk her life and interfere with the Marines' plans, potentially causing devastating consequences for the wider world.\n\n[Written by MAL Rewrite]",
+    "source_id": "anime_60022",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 60022,
+      "anime_title": "One Piece Fan Letter",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.435946"
+    },
+    "start_char": 0,
+    "end_char": 420
+  },
+  {
+    "chunk_id": "anime_9969_chunk_0",
+    "text": "After a one-year hiatus, Shinpachi Shimura returns to Edo, only to stumble upon a shocking surprise: Gintoki and Kagura, his fellow Yorozuya members, have become completely different characters! Fleeing from the Yorozuya headquarters in confusion, Shinpachi finds that all the denizens of Edo have undergone impossibly extreme changes, in both appearance and personality.",
+    "source_id": "anime_9969",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 9969,
+      "anime_title": "Gintama'",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.438947"
+    },
+    "start_char": 0,
+    "end_char": 371
+  },
+  {
+    "chunk_id": "anime_9969_chunk_1",
+    "text": "After a one-year hiatus, Shinpachi Shimura returns to Edo, only to stumble upon a shocking surprise: Gintoki and Kagura, his fellow Yorozuya members, have become completely different characters! Fleeing from the Yorozuya headquarters in confusion, Shinpachi finds that all the denizens of Edo have undergone impossibly extreme changes, in both appearance and personality. Most unbelievably, his sister Otae has married the Shinsengumi chief and shameless stalker Isao Kondou and is pregnant with their first child.",
+    "source_id": "anime_9969",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 9969,
+      "anime_title": "Gintama'",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.438947"
+    },
+    "start_char": 0,
+    "end_char": 514
+  },
+  {
+    "chunk_id": "anime_9969_chunk_2",
+    "text": "Fleeing from the Yorozuya headquarters in confusion, Shinpachi finds that all the denizens of Edo have undergone impossibly extreme changes, in both appearance and personality. Most unbelievably, his sister Otae has married the Shinsengumi chief and shameless stalker Isao Kondou and is pregnant with their first child. Bewildered, Shinpachi agrees to join the Shinsengumi at Otae and Kondou's request and finds even more startling transformations afoot both in and out of the ranks of the the organization.",
+    "source_id": "anime_9969",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 9969,
+      "anime_title": "Gintama'",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.438947"
+    },
+    "start_char": 0,
+    "end_char": 507
+  },
+  {
+    "chunk_id": "anime_9969_chunk_3",
+    "text": "Most unbelievably, his sister Otae has married the Shinsengumi chief and shameless stalker Isao Kondou and is pregnant with their first child. Bewildered, Shinpachi agrees to join the Shinsengumi at Otae and Kondou's request and finds even more startling transformations afoot both in and out of the ranks of the the organization. However, discovering that Vice Chief Toushirou Hijikata has remained unchanged, Shinpachi and his unlikely Shinsengumi ally set out to return the city of Edo to how they remember it.",
+    "source_id": "anime_9969",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 9969,
+      "anime_title": "Gintama'",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.438947"
+    },
+    "start_char": 0,
+    "end_char": 513
+  },
+  {
+    "chunk_id": "anime_9969_chunk_4",
+    "text": "Bewildered, Shinpachi agrees to join the Shinsengumi at Otae and Kondou's request and finds even more startling transformations afoot both in and out of the ranks of the the organization. However, discovering that Vice Chief Toushirou Hijikata has remained unchanged, Shinpachi and his unlikely Shinsengumi ally set out to return the city of Edo to how they remember it. With even more dirty jokes, tongue-in-cheek parodies, and shameless references, Gintama' follows the Yorozuya team through more of their misadventures in the vibrant, alien-filled world of Edo.\n\n[Written by MAL Rewrite]",
+    "source_id": "anime_9969",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 9969,
+      "anime_title": "Gintama'",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.438947"
+    },
+    "start_char": 0,
+    "end_char": 590
+  },
+  {
+    "chunk_id": "anime_15417_chunk_0",
+    "text": "While Gintoki Sakata was away, the Yorozuya found themselves a new leader: Kintoki, Gintoki's golden-haired doppelganger. In order to regain his former position, Gintoki will need the help of those around him, a troubling feat when no one can remember him! Between Kintoki and Gintoki, who will claim the throne as the main character? In addition, Yorozuya make a trip back down to red-light district of Yoshiwara to aid an elderly courtesan in her search for her long-lost lover.",
+    "source_id": "anime_15417",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 15417,
+      "anime_title": "Gintama': Enchousen",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.441944"
+    },
+    "start_char": 0,
+    "end_char": 480
+  },
+  {
+    "chunk_id": "anime_15417_chunk_1",
+    "text": "Between Kintoki and Gintoki, who will claim the throne as the main character? In addition, Yorozuya make a trip back down to red-light district of Yoshiwara to aid an elderly courtesan in her search for her long-lost lover. Although the district is no longer in chains beneath the earth's surface, the trio soon learn of the tragic backstories of Yoshiwara's inhabitants that still haunt them.",
+    "source_id": "anime_15417",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 15417,
+      "anime_title": "Gintama': Enchousen",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.441944"
+    },
+    "start_char": 0,
+    "end_char": 393
+  },
+  {
+    "chunk_id": "anime_15417_chunk_2",
+    "text": "In addition, Yorozuya make a trip back down to red-light district of Yoshiwara to aid an elderly courtesan in her search for her long-lost lover. Although the district is no longer in chains beneath the earth's surface, the trio soon learn of the tragic backstories of Yoshiwara's inhabitants that still haunt them. With flashback after flashback, this quest has Yorozuya witnessing everlasting love and protecting it as best they can with their hearts and souls.\n\n[Written by MAL Rewrite]",
+    "source_id": "anime_15417",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 15417,
+      "anime_title": "Gintama': Enchousen",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.441944"
+    },
+    "start_char": 0,
+    "end_char": 489
+  },
+  {
+    "chunk_id": "anime_820_chunk_0",
+    "text": "The 150-year-long stalemate between the two interstellar superpowers, the Galactic Empire and the Free Planets Alliance, comes to an end when a new generation of leaders arises: the idealistic military genius Reinhard von Lohengramm, and the FPA's reserved historian, Yang Wenli.",
+    "source_id": "anime_820",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 820,
+      "anime_title": "Ginga Eiyuu Densetsu",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.444496"
+    },
+    "start_char": 0,
+    "end_char": 279
+  },
+  {
+    "chunk_id": "anime_820_chunk_1",
+    "text": "The 150-year-long stalemate between the two interstellar superpowers, the Galactic Empire and the Free Planets Alliance, comes to an end when a new generation of leaders arises: the idealistic military genius Reinhard von Lohengramm, and the FPA's reserved historian, Yang Wenli. While Reinhard climbs the ranks of the Empire with the aid of his childhood friend, Siegfried Kircheis, he must fight not only the war, but also the remnants of the crumbling Goldenbaum Dynasty in order to free his sister from the Kaiser and unify humanity under one genuine ruler.",
+    "source_id": "anime_820",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 820,
+      "anime_title": "Ginga Eiyuu Densetsu",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.444496"
+    },
+    "start_char": 0,
+    "end_char": 561
+  },
+  {
+    "chunk_id": "anime_820_chunk_2",
+    "text": "The 150-year-long stalemate between the two interstellar superpowers, the Galactic Empire and the Free Planets Alliance, comes to an end when a new generation of leaders arises: the idealistic military genius Reinhard von Lohengramm, and the FPA's reserved historian, Yang Wenli. While Reinhard climbs the ranks of the Empire with the aid of his childhood friend, Siegfried Kircheis, he must fight not only the war, but also the remnants of the crumbling Goldenbaum Dynasty in order to free his sister from the Kaiser and unify humanity under one genuine ruler. Meanwhile, on the other side of the galaxy, Yang—a strong supporter of democratic ideals—has to stand firm in his beliefs, despite the struggles of the FPA, and show his pupil, Julian Mintz, that autocracy is not the solution.",
+    "source_id": "anime_820",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 820,
+      "anime_title": "Ginga Eiyuu Densetsu",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.444496"
+    },
+    "start_char": 0,
+    "end_char": 788
+  },
+  {
+    "chunk_id": "anime_820_chunk_3",
+    "text": "While Reinhard climbs the ranks of the Empire with the aid of his childhood friend, Siegfried Kircheis, he must fight not only the war, but also the remnants of the crumbling Goldenbaum Dynasty in order to free his sister from the Kaiser and unify humanity under one genuine ruler. Meanwhile, on the other side of the galaxy, Yang—a strong supporter of democratic ideals—has to stand firm in his beliefs, despite the struggles of the FPA, and show his pupil, Julian Mintz, that autocracy is not the solution. As ideologies clash amidst the war's many casualties, the two strategic masterminds must ask themselves what the real reason behind their battle is.\n\n[Written by MAL Rewrite]",
+    "source_id": "anime_820",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 820,
+      "anime_title": "Ginga Eiyuu Densetsu",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.444496"
+    },
+    "start_char": 0,
+    "end_char": 683
+  },
+  {
+    "chunk_id": "anime_34096_chunk_0",
+    "text": "After joining the resistance against the bakufu, Gintoki and the gang are in hiding, along with Katsura and his Joui rebels. The Yorozuya is soon approached by Nobume Imai and two members of the Kiheitai, who explain that the Harusame pirates have turned against 7th Division Captain Kamui and their former ally Takasugi. The Kiheitai present Gintoki with a job: find Takasugi, who has been missing since his ship was ambushed in a Harusame raid.",
+    "source_id": "anime_34096",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 34096,
+      "anime_title": "Gintama.",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.447592"
+    },
+    "start_char": 0,
+    "end_char": 446
+  },
+  {
+    "chunk_id": "anime_34096_chunk_1",
+    "text": "The Yorozuya is soon approached by Nobume Imai and two members of the Kiheitai, who explain that the Harusame pirates have turned against 7th Division Captain Kamui and their former ally Takasugi. The Kiheitai present Gintoki with a job: find Takasugi, who has been missing since his ship was ambushed in a Harusame raid. Nobume also makes a stunning revelation regarding the Tendoushuu, a secret organization pulling the strings of numerous factions, and their leader Utsuro, the shadowy figure with an uncanny resemblance to Gintoki's former teacher.",
+    "source_id": "anime_34096",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 34096,
+      "anime_title": "Gintama.",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.447592"
+    },
+    "start_char": 0,
+    "end_char": 552
+  },
+  {
+    "chunk_id": "anime_34096_chunk_2",
+    "text": "The Kiheitai present Gintoki with a job: find Takasugi, who has been missing since his ship was ambushed in a Harusame raid. Nobume also makes a stunning revelation regarding the Tendoushuu, a secret organization pulling the strings of numerous factions, and their leader Utsuro, the shadowy figure with an uncanny resemblance to Gintoki's former teacher. Hitching a ride on Sakamoto's space ship, the Yorozuya and Katsura set out for Rakuyou, Kagura's home planet, where the various factions have gathered and tensions are brewing.",
+    "source_id": "anime_34096",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 34096,
+      "anime_title": "Gintama.",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.447592"
+    },
+    "start_char": 0,
+    "end_char": 532
+  },
+  {
+    "chunk_id": "anime_34096_chunk_3",
+    "text": "Nobume also makes a stunning revelation regarding the Tendoushuu, a secret organization pulling the strings of numerous factions, and their leader Utsuro, the shadowy figure with an uncanny resemblance to Gintoki's former teacher. Hitching a ride on Sakamoto's space ship, the Yorozuya and Katsura set out for Rakuyou, Kagura's home planet, where the various factions have gathered and tensions are brewing. Long-held grudges, political infighting, and the Tendoushuu's sinister overarching plan finally culminate into a massive, decisive battle on Rakuyou.\n\n[Written by MAL Rewrite]",
+    "source_id": "anime_34096",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 34096,
+      "anime_title": "Gintama.",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.447592"
+    },
+    "start_char": 0,
+    "end_char": 583
+  },
+  {
+    "chunk_id": "anime_41467_chunk_0",
+    "text": "Substitute Soul Reaper Ichigo Kurosaki spends his days fighting against Hollows, dangerous evil spirits that threaten Karakura Town. Ichigo carries out his quest with his closest allies: Orihime Inoue, his childhood friend with a talent for healing; Yasutora Sado, his high school classmate with superhuman strength; and Uryuu Ishida, Ichigo's Quincy rival.",
+    "source_id": "anime_41467",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 41467,
+      "anime_title": "Bleach: Sennen Kessen-hen",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.451601"
+    },
+    "start_char": 0,
+    "end_char": 357
+  },
+  {
+    "chunk_id": "anime_41467_chunk_1",
+    "text": "Substitute Soul Reaper Ichigo Kurosaki spends his days fighting against Hollows, dangerous evil spirits that threaten Karakura Town. Ichigo carries out his quest with his closest allies: Orihime Inoue, his childhood friend with a talent for healing; Yasutora Sado, his high school classmate with superhuman strength; and Uryuu Ishida, Ichigo's Quincy rival. Ichigo's vigilante routine is disrupted by the sudden appearance of Asguiaro Ebern, a dangerous Arrancar who heralds the return of Yhwach, an ancient Quincy king.",
+    "source_id": "anime_41467",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 41467,
+      "anime_title": "Bleach: Sennen Kessen-hen",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.451601"
+    },
+    "start_char": 0,
+    "end_char": 520
+  },
+  {
+    "chunk_id": "anime_41467_chunk_2",
+    "text": "Ichigo carries out his quest with his closest allies: Orihime Inoue, his childhood friend with a talent for healing; Yasutora Sado, his high school classmate with superhuman strength; and Uryuu Ishida, Ichigo's Quincy rival. Ichigo's vigilante routine is disrupted by the sudden appearance of Asguiaro Ebern, a dangerous Arrancar who heralds the return of Yhwach, an ancient Quincy king. Yhwach seeks to reignite the historic blood feud between Soul Reaper and Quincy, and he sets his sights on erasing both the human world and the Soul Society for good.",
+    "source_id": "anime_41467",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 41467,
+      "anime_title": "Bleach: Sennen Kessen-hen",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.451601"
+    },
+    "start_char": 0,
+    "end_char": 554
+  },
+  {
+    "chunk_id": "anime_41467_chunk_3",
+    "text": "Ichigo's vigilante routine is disrupted by the sudden appearance of Asguiaro Ebern, a dangerous Arrancar who heralds the return of Yhwach, an ancient Quincy king. Yhwach seeks to reignite the historic blood feud between Soul Reaper and Quincy, and he sets his sights on erasing both the human world and the Soul Society for good. Yhwach launches a two-pronged invasion into both the Soul Society and Hueco Mundo, the home of Hollows and Arrancar.",
+    "source_id": "anime_41467",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 41467,
+      "anime_title": "Bleach: Sennen Kessen-hen",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.451601"
+    },
+    "start_char": 0,
+    "end_char": 446
+  },
+  {
+    "chunk_id": "anime_41467_chunk_4",
+    "text": "Yhwach seeks to reignite the historic blood feud between Soul Reaper and Quincy, and he sets his sights on erasing both the human world and the Soul Society for good. Yhwach launches a two-pronged invasion into both the Soul Society and Hueco Mundo, the home of Hollows and Arrancar. In retaliation, Ichigo and his friends must fight alongside old allies and enemies alike to end Yhwach's campaign of carnage before the world itself comes to an end.\n\n[Written by MAL Rewrite]",
+    "source_id": "anime_41467",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 41467,
+      "anime_title": "Bleach: Sennen Kessen-hen",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.451601"
+    },
+    "start_char": 0,
+    "end_char": 475
+  },
+  {
+    "chunk_id": "anime_43608_chunk_0",
+    "text": "The elite members of Shuchiin Academy's student council continue their competitive day-to-day antics. Council president Miyuki Shirogane clashes daily against vice-president Kaguya Shinomiya, each fighting tooth and nail to trick the other into confessing their romantic love. Kaguya struggles within the strict confines of her wealthy, uptight family, rebelling against her cold default demeanor as she warms to Shirogane and the rest of her friends.",
+    "source_id": "anime_43608",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 43608,
+      "anime_title": "Kaguya-sama wa Kokurasetai: Ultra Romantic",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.454591"
+    },
+    "start_char": 0,
+    "end_char": 451
+  },
+  {
+    "chunk_id": "anime_43608_chunk_1",
+    "text": "Council president Miyuki Shirogane clashes daily against vice-president Kaguya Shinomiya, each fighting tooth and nail to trick the other into confessing their romantic love. Kaguya struggles within the strict confines of her wealthy, uptight family, rebelling against her cold default demeanor as she warms to Shirogane and the rest of her friends. Meanwhile, council treasurer Yuu Ishigami suffers under the weight of his hopeless crush on Tsubame Koyasu, a popular upperclassman who helps to instill a new confidence in him.",
+    "source_id": "anime_43608",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 43608,
+      "anime_title": "Kaguya-sama wa Kokurasetai: Ultra Romantic",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.454591"
+    },
+    "start_char": 0,
+    "end_char": 527
+  },
+  {
+    "chunk_id": "anime_43608_chunk_2",
+    "text": "Kaguya struggles within the strict confines of her wealthy, uptight family, rebelling against her cold default demeanor as she warms to Shirogane and the rest of her friends. Meanwhile, council treasurer Yuu Ishigami suffers under the weight of his hopeless crush on Tsubame Koyasu, a popular upperclassman who helps to instill a new confidence in him. Miko Iino, the newest student council member, grows closer to the rule-breaking Ishigami while striving to overcome her own authoritarian moral code.",
+    "source_id": "anime_43608",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 43608,
+      "anime_title": "Kaguya-sama wa Kokurasetai: Ultra Romantic",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.454591"
+    },
+    "start_char": 0,
+    "end_char": 502
+  },
+  {
+    "chunk_id": "anime_43608_chunk_3",
+    "text": "Meanwhile, council treasurer Yuu Ishigami suffers under the weight of his hopeless crush on Tsubame Koyasu, a popular upperclassman who helps to instill a new confidence in him. Miko Iino, the newest student council member, grows closer to the rule-breaking Ishigami while striving to overcome her own authoritarian moral code. As love further blooms at Shuchiin Academy, the student council officers drag their outsider friends into increasingly comedic conflicts.\n\n[Written by MAL Rewrite]",
+    "source_id": "anime_43608",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 43608,
+      "anime_title": "Kaguya-sama wa Kokurasetai: Ultra Romantic",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.454591"
+    },
+    "start_char": 0,
+    "end_char": 491
+  },
+  {
+    "chunk_id": "anime_42938_chunk_0",
+    "text": "Hundreds of years ago, the Chinese zodiac spirits and their god swore to stay together eternally. United by this promise, the possessed members of the Souma family shall always return to each other under any circumstances. Yet, when these bonds shackle them from freedom, it becomes an undesirable burden—a curse. As head of the clan, Akito is convinced that he shares a special connection with the other Soumas.",
+    "source_id": "anime_42938",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 42938,
+      "anime_title": "Fruits Basket: The Final",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.457740"
+    },
+    "start_char": 0,
+    "end_char": 412
+  },
+  {
+    "chunk_id": "anime_42938_chunk_1",
+    "text": "Yet, when these bonds shackle them from freedom, it becomes an undesirable burden—a curse. As head of the clan, Akito is convinced that he shares a special connection with the other Soumas. While he desperately clings to this fantasy, the rest of the family remains isolated and suppressed by the fear of punishment. Tooru Honda, who has grown attached to the Soumas, is determined to break the chains that bind them.",
+    "source_id": "anime_42938",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 42938,
+      "anime_title": "Fruits Basket: The Final",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.457740"
+    },
+    "start_char": 0,
+    "end_char": 417
+  },
+  {
+    "chunk_id": "anime_42938_chunk_2",
+    "text": "While he desperately clings to this fantasy, the rest of the family remains isolated and suppressed by the fear of punishment. Tooru Honda, who has grown attached to the Soumas, is determined to break the chains that bind them. Her companionship with the family and her friends encourages her to move forward with lifting the curse. However, due to confounding revelations, she struggles to find the tenacity to continue her endeavors.",
+    "source_id": "anime_42938",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 42938,
+      "anime_title": "Fruits Basket: The Final",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.457740"
+    },
+    "start_char": 0,
+    "end_char": 435
+  },
+  {
+    "chunk_id": "anime_42938_chunk_3",
+    "text": "Her companionship with the family and her friends encourages her to move forward with lifting the curse. However, due to confounding revelations, she struggles to find the tenacity to continue her endeavors. With time slowly withering away, Tooru contends with an uncertain future in hopes of reaching the tranquility that may lie beyond all this commotion.\n\n[Written by MAL Rewrite]",
+    "source_id": "anime_42938",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 42938,
+      "anime_title": "Fruits Basket: The Final",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.457740"
+    },
+    "start_char": 0,
+    "end_char": 383
+  },
+  {
+    "chunk_id": "anime_4181_chunk_0",
+    "text": "Tomoya Okazaki and Nagisa Furukawa have graduated from high school, and together, they experience the emotional rollercoaster of growing up. Unable to decide on a course for his future, Tomoya learns the value of a strong work ethic and discovers the strength of Nagisa's support. Through the couple's dedication and unity of purpose, they push forward to confront their personal problems, deepen their old relationships, and create new bonds. Time also moves on in the Illusionary World.",
+    "source_id": "anime_4181",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 4181,
+      "anime_title": "Clannad: After Story",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.459725"
+    },
+    "start_char": 0,
+    "end_char": 488
+  },
+  {
+    "chunk_id": "anime_4181_chunk_1",
+    "text": "Through the couple's dedication and unity of purpose, they push forward to confront their personal problems, deepen their old relationships, and create new bonds. Time also moves on in the Illusionary World. As the plains grow cold with the approach of winter, the Illusionary Girl and the Garbage Doll are presented with a difficult situation that reveals the World's true purpose.\n\n[Written by MAL Rewrite]",
+    "source_id": "anime_4181",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 4181,
+      "anime_title": "Clannad: After Story",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.459725"
+    },
+    "start_char": 0,
+    "end_char": 408
+  },
+  {
+    "chunk_id": "anime_918_chunk_0",
+    "text": "Edo is a city that was home to the vigor and ambition of samurai across the country. However, following feudal Japan's surrender to powerful aliens known as the \"Amanto,\" those aspirations now seem unachievable. With the once-influential shogunate rebuilt as a puppet government, a new law is passed that promptly prohibits all swords in public. Enter Gintoki Sakata, an eccentric silver-haired man who always carries around a wooden sword and maintains his stature as a samurai despite the ban.",
+    "source_id": "anime_918",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 918,
+      "anime_title": "Gintama",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.462729"
+    },
+    "start_char": 0,
+    "end_char": 495
+  },
+  {
+    "chunk_id": "anime_918_chunk_1",
+    "text": "With the once-influential shogunate rebuilt as a puppet government, a new law is passed that promptly prohibits all swords in public. Enter Gintoki Sakata, an eccentric silver-haired man who always carries around a wooden sword and maintains his stature as a samurai despite the ban. As the founder of Yorozuya, a small business for odd jobs, Gintoki often embarks on endeavors to help other people—though usually in rather strange and unforeseen ways.",
+    "source_id": "anime_918",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 918,
+      "anime_title": "Gintama",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.462729"
+    },
+    "start_char": 0,
+    "end_char": 452
+  },
+  {
+    "chunk_id": "anime_918_chunk_2",
+    "text": "Enter Gintoki Sakata, an eccentric silver-haired man who always carries around a wooden sword and maintains his stature as a samurai despite the ban. As the founder of Yorozuya, a small business for odd jobs, Gintoki often embarks on endeavors to help other people—though usually in rather strange and unforeseen ways. Assisted by Shinpachi Shimura, a boy with glasses supposedly learning the way of the samurai; Kagura, a tomboyish girl with superhuman strength and an endless appetite; and Sadaharu, their giant pet dog who loves biting on people's heads, the Yorozuya encounter anything from alien royalty to scuffles with local gangs in the ever-changing world of Edo.\n\n[Written by MAL Rewrite]",
+    "source_id": "anime_918",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 918,
+      "anime_title": "Gintama",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.462729"
+    },
+    "start_char": 0,
+    "end_char": 698
+  },
+  {
+    "chunk_id": "anime_28851_chunk_0",
+    "text": "As a wild youth, elementary school student Shouya Ishida sought to beat boredom in the cruelest ways. When the deaf Shouko Nishimiya transfers into his class, Shouya and the rest of his class thoughtlessly bully her for fun. However, when her mother notifies the school, he is singled out and blamed for everything done to her. With Shouko transferring out of the school, Shouya is left at the mercy of his classmates.",
+    "source_id": "anime_28851",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 28851,
+      "anime_title": "Koe no Katachi",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.464347"
+    },
+    "start_char": 0,
+    "end_char": 418
+  },
+  {
+    "chunk_id": "anime_28851_chunk_1",
+    "text": "However, when her mother notifies the school, he is singled out and blamed for everything done to her. With Shouko transferring out of the school, Shouya is left at the mercy of his classmates. He is heartlessly ostracized all throughout elementary and middle school, while teachers turn a blind eye. Now in his third year of high school, Shouya is still plagued by his wrongdoings as a young boy.",
+    "source_id": "anime_28851",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 28851,
+      "anime_title": "Koe no Katachi",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.464347"
+    },
+    "start_char": 0,
+    "end_char": 397
+  },
+  {
+    "chunk_id": "anime_28851_chunk_2",
+    "text": "He is heartlessly ostracized all throughout elementary and middle school, while teachers turn a blind eye. Now in his third year of high school, Shouya is still plagued by his wrongdoings as a young boy. Sincerely regretting his past actions, he sets out on a journey of redemption: to meet Shouko once more and make amends.",
+    "source_id": "anime_28851",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 28851,
+      "anime_title": "Koe no Katachi",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.464347"
+    },
+    "start_char": 0,
+    "end_char": 324
+  },
+  {
+    "chunk_id": "anime_28851_chunk_3",
+    "text": "Now in his third year of high school, Shouya is still plagued by his wrongdoings as a young boy. Sincerely regretting his past actions, he sets out on a journey of redemption: to meet Shouko once more and make amends. Koe no Katachi tells the heartwarming tale of Shouya's reunion with Shouko and his honest attempts to redeem himself, all while being continually haunted by the shadows of his past.\n \n[Written by MAL Rewrite]",
+    "source_id": "anime_28851",
+    "source_type": "synopsis",
+    "metadata": {
+      "anime_id": 28851,
+      "anime_title": "Koe no Katachi",
+      "source": "jikan_api",
+      "field": "synopsis",
+      "fetched_at": "2026-03-04T23:57:30.464347"
+    },
+    "start_char": 0,
+    "end_char": 426
   }
 ]
