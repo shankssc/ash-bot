@@ -33,13 +33,14 @@ async def test_vector_store():
     Session-scoped Qdrant vector store for integration tests.
 
     Lifecycle:
-    1. Creates isolated test collection at session start
-    2. Yields vector store for all tests in session
-    3. Deletes test collection after session (cleanup)
+    1. Deletes ALL stale anime_knowledge_test_* collections from previous runs
+    2. Creates a fresh isolated test collection
+    3. Yields vector store for all tests in the session
+    4. Deletes the test collection on teardown
     """
     settings = get_settings()
 
-    # Clean up: Delete collection if exists from previous run
+    # Clean up ALL stale test collections (not just the current name)
     temp_client = QdrantClient(
         url=settings.QDRANT_URL,
         api_key=secrets.QDRANT_API_KEY.get_secret_value(),
@@ -48,12 +49,14 @@ async def test_vector_store():
     )
     try:
         collections = await asyncio.to_thread(temp_client.get_collections)
-        existing_names = [c.name for c in collections.collections]
-        if TEST_COLLECTION_NAME in existing_names:
-            logger.info(f"\n🗑️  Deleting stale test collection: {TEST_COLLECTION_NAME}")
-            await asyncio.to_thread(
-                temp_client.delete_collection, collection_name=TEST_COLLECTION_NAME
-            )
+        stale = [
+            c.name for c in collections.collections if c.name.startswith("anime_knowledge_test_")
+        ]
+        for name in stale:
+            logger.info(f"\n🗑️  Deleting stale test collection: {name}")
+            await asyncio.to_thread(temp_client.delete_collection, collection_name=name)
+        if stale:
+            logger.info(f"✅ Cleaned up {len(stale)} stale test collection(s)")
     except Exception as e:
         logger.info(f"\n⚠️  Cleanup warning (non-fatal): {e}")
     finally:
@@ -71,7 +74,7 @@ async def test_vector_store():
     logger.info(f"\n✅ Created isolated test collection: {TEST_COLLECTION_NAME}")
     yield store
 
-    # Cleanup: Delete test collection after session
+    # Teardown: delete test collection
     try:
         await asyncio.to_thread(
             store._client.delete_collection, collection_name=TEST_COLLECTION_NAME
@@ -81,57 +84,101 @@ async def test_vector_store():
         logger.info(f"\n⚠️  Cleanup warning (non-fatal): {e}")
 
 
-@pytest_asyncio.fixture(scope="session", autouse=True)
-async def populate_test_collection(test_vector_store):
+@pytest_asyncio.fixture(scope="session")
+async def test_sparse_engine(
+    test_vector_store: QdrantVectorStore,
+) -> AsyncGenerator[SparseSearchEngine, None]:
     """
-    Populate test collection with controlled dataset before tests.
+    Session-scoped sparse search engine (corpus NOT initialized here).
 
-    Why 5 anime?
-    - Fast enough for CI/CD (<15 seconds)
-    - Large enough to validate search logic
-    - Small enough to debug failures
+    The BM25 corpus is intentionally left uninitialized at this point.
+    populated_test_collection calls ensure_initialized(force=True) AFTER
+    data is in Qdrant, which is the only safe moment to build the corpus.
+    This eliminates the ID mismatch bug where BM25 and Qdrant returned
+    results from different collections.
+    """
+    import app.retrieval.sparse_search as ss_module
+
+    # Clear any stale singleton from a prior session in the same process
+    ss_module.SparseSearchEngine._instance = None
+
+    # Direct instantiation — never use get_instance() in tests
+    engine = SparseSearchEngine(test_vector_store)
+
+    yield engine
+
+    # Teardown: clear singleton to avoid cross-session pollution
+    ss_module.SparseSearchEngine._instance = None
+
+
+@pytest_asyncio.fixture(scope="session", autouse=True)
+async def populated_test_collection(test_vector_store, test_sparse_engine):
+    """
+    Populate the test collection AND rebuild the BM25 corpus atomically.
+
+    This fixture is the single source of truth for test data setup. It:
+      1. Runs the ingestion pipeline to upsert 5 anime into Qdrant
+      2. Waits for Qdrant indexing to settle
+      3. Calls ensure_initialized(force=True) on test_sparse_engine
+
+    Because test_sparse_engine is a parameter, pytest guarantees it exists
+    before this fixture runs. Because this is autouse=True with scope=session,
+    it runs before any test in the session.
+
+    The strict ordering (upsert → sleep → corpus build) ensures BM25 chunk IDs
+    always match the live Qdrant collection IDs, so RRF fusion produces valid
+    sparse_rank values on overlapping results.
+
+    Returns:
+        set[str] of anime titles actually ingested (consumed by ingested_titles fixture)
     """
     logger.info("\n🚀 Populating test collection with 5 anime...")
 
     result = await run_minimal_pipeline(
         max_anime=5,
         vector_store=test_vector_store,
-        save_to_disk=False,  # Skip disk output for tests
+        save_to_disk=False,
     )
 
-    logger.info(f"✅ Populated test collection: {result['uploaded_to_qdrant']} chunks")
+    logger.info(f"✅ Pipeline complete: {result['uploaded_to_qdrant']} chunks uploaded")
 
-    # Wait for Qdrant indexing to complete (critical for search tests)
+    # Wait for Qdrant indexing before building BM25 corpus
     await asyncio.sleep(2)
+
+    # Build BM25 corpus NOW — data is confirmed in Qdrant
+    await test_sparse_engine.ensure_initialized(force=True)
+
+    stats = test_sparse_engine.get_stats()
+    logger.info(f"✅ BM25 corpus ready: {stats['corpus_size']} chunks")
+
+    # Return ingested titles for downstream fixtures
+    # "anime_titles" key added to pipeline.py summary (see that fix)
+    ingested_titles: set[str] = set(result.get("anime_titles", []))
+    logger.info(f"✅ Ingested titles: {ingested_titles}")
+
+    return ingested_titles
 
 
 @pytest_asyncio.fixture(scope="session")
-async def test_sparse_engine(
-    test_vector_store: QdrantVectorStore,
-) -> AsyncGenerator[SparseSearchEngine, None]:
+async def ingested_titles(populated_test_collection) -> set[str]:
     """
-    Sparse search engine for test collection.
+    The set of anime titles actually ingested during this test session.
 
-    CRITICAL: Direct instantiation (NOT get_instance()) to avoid singleton pollution
-    from production collection.
+    Tests should assert against this instead of hardcoding anime names,
+    since run_minimal_pipeline fetches whatever Jikan returns as top-5.
+
+    Usage:
+        async def test_foo(test_sparse_engine, ingested_titles):
+            results = test_sparse_engine.search("magic", top_k=3)
+            result_titles = {r["payload"].get("anime_title", "") for r in results}
+            assert result_titles & ingested_titles
     """
-    # DO NOT USE get_instance() - creates singleton tied to first vector store
-    engine = SparseSearchEngine(test_vector_store)  # Direct instantiation
-
-    # Force rebuild corpus from test collection
-    await engine.ensure_initialized(force=True)
-
-    yield engine
-
-    # Optional: Clear singleton cache to prevent cross-test pollution
-    import app.retrieval.sparse_search as ss_module
-
-    ss_module.SparseSearchEngine._instance = None
+    return populated_test_collection
 
 
 @pytest_asyncio.fixture(scope="session")
 async def test_hybrid_engine(test_vector_store, test_sparse_engine):
-    """Hybrid search engine for test collection."""
+    """Hybrid search engine wired to the test collection."""
     engine = HybridSearchEngine(
         vector_store=test_vector_store,
         sparse_engine=test_sparse_engine,
@@ -144,6 +191,6 @@ async def test_hybrid_engine(test_vector_store, test_sparse_engine):
 
 @pytest_asyncio.fixture(scope="session")
 async def test_embedder():
-    """Embedding generator for test queries."""
+    """Embedding generator for encoding test queries."""
     generator = EmbeddingGenerator()
     yield generator

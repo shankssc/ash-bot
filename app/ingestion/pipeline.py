@@ -7,7 +7,7 @@ from __future__ import annotations
 import json
 import uuid
 
-from datetime import datetime
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -56,7 +56,7 @@ class MinimalIngestionPipeline:
             max_anime: Maximum number of anime to process
 
         Returns:
-            Summary statistics
+            Summary statistics including anime_titles (list of ingested titles)
         """
         from app.core.logging import get_logger  # Late import to avoid circular deps
 
@@ -102,7 +102,7 @@ class MinimalIngestionPipeline:
                         "anime_title": title,
                         "source": "jikan_api",
                         "field": "synopsis",
-                        "fetched_at": datetime.utcnow().isoformat(),
+                        "fetched_at": datetime.now(UTC).isoformat(),  # FIX: timezone-aware
                     }
 
                     synopsis_chunks = self.chunker.chunk_text(
@@ -141,9 +141,11 @@ class MinimalIngestionPipeline:
         else:
             logger.info("Step 4: Skipping disk output (save_to_disk=False)")
 
-        # Return summary
+        # FIX: Include anime_titles in summary so conftest can assert against
+        # real ingested data without hardcoding anime names like "Frieren".
         summary = {
             "anime_processed": len(anime_data),
+            "anime_titles": [a["title"] for a in anime_data],  # FIX: added
             "chunks_created": len(chunks),
             "embeddings_generated": len(embeddings),
             "uploaded_to_qdrant": uploaded_to_qdrant,
@@ -200,7 +202,8 @@ class MinimalIngestionPipeline:
                         "source": chunk.metadata.get("source", "unknown"),
                         "field": chunk.metadata.get("field", "unknown"),
                         "fetched_at": chunk.metadata.get(
-                            "fetched_at", datetime.utcnow().isoformat()
+                            "fetched_at",
+                            datetime.now(UTC).isoformat(),  # FIX: timezone-aware
                         ),
                     },
                 )
@@ -258,7 +261,7 @@ class MinimalIngestionPipeline:
         # Save MANIFEST.json with upload status
         manifest = {
             "pipeline_version": settings.APP_VERSION,
-            "generated_at": datetime.utcnow().isoformat(),
+            "generated_at": datetime.now(UTC).isoformat(),  # FIX: timezone-aware
             "duration_seconds": duration_seconds,
             "anime_count": len(anime_data),
             "chunk_count": len(chunks),
@@ -269,11 +272,9 @@ class MinimalIngestionPipeline:
             "saved_to_disk": self.save_to_disk,
         }
 
-        # Save MANIFEST.json
         with open(self.output_dir / "MANIFEST.json", "w", encoding="utf-8") as f:
             json.dump(manifest, f, indent=2)
 
-        # Save README with pipeline info
         with open(self.output_dir / "README.md", "w", encoding="utf-8") as f:
             f.write(
                 f"""# Minimal Ingestion Pipeline Output
@@ -295,6 +296,7 @@ Embedding dimension: {embeddings.shape[1] if len(embeddings) > 0 else 0}
 ```python
 import numpy as np
 embeddings = np.load('embeddings.npy')
+```
 """
             )
 

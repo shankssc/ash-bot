@@ -286,7 +286,7 @@ class BM25Corpus:
 
             results = []
             for idx in top_indices:
-                if scores[idx] <= 0:  # Skip zero/negative scores
+                if scores[idx] < 0:  # Skip only negative scores
                     continue
 
                 results.append(

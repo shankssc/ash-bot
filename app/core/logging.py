@@ -25,6 +25,10 @@ if not _early_logger.handlers:
     )
     _early_logger.addHandler(handler)
 
+_early_logger_original_handler: logging.Handler | None = None
+if _early_logger.handlers:
+    _early_logger_original_handler = _early_logger.handlers[0]
+
 
 class LoggerConfig:
     """Centralized logger configuration using app settings."""
