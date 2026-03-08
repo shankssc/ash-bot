@@ -176,6 +176,55 @@ class QdrantVectorStore:
             f"url={self.url}"
         )
 
+    async def _create_payload_indexes(self) -> None:
+        """Create payload indexes for optimized filtering (idempotent)."""
+        if not self._client:
+            raise RuntimeError("Client not initialized")
+
+        try:
+            # Index for anime_id (integer filtering)
+            await asyncio.to_thread(
+                self._client.create_payload_index,
+                collection_name=self.collection_name,
+                field_name="anime_id",
+                field_schema=rest.PayloadSchemaType.INTEGER,
+            )
+            logger.debug("✓ Created payload index: anime_id (INTEGER)")
+
+            # Index for anime_title (keyword filtering)
+            await asyncio.to_thread(
+                self._client.create_payload_index,
+                collection_name=self.collection_name,
+                field_name="anime_title",
+                field_schema=rest.PayloadSchemaType.KEYWORD,
+            )
+            logger.debug("✓ Created payload index: anime_title (KEYWORD)")
+
+            # Index for chunk_id (unique identifier)
+            await asyncio.to_thread(
+                self._client.create_payload_index,
+                collection_name=self.collection_name,
+                field_name="chunk_id",
+                field_schema=rest.PayloadSchemaType.KEYWORD,
+            )
+            logger.debug("✓ Created payload index: chunk_id (KEYWORD)")
+
+            # Index for source_type (content type filtering)
+            await asyncio.to_thread(
+                self._client.create_payload_index,
+                collection_name=self.collection_name,
+                field_name="source_type",
+                field_schema=rest.PayloadSchemaType.KEYWORD,
+            )
+            logger.debug("✓ Created payload index: source_type (KEYWORD)")
+
+        except Exception as e:
+            # Indexes might already exist - log but don't fail
+            if "already exists" in str(e).lower() or "conflict" in str(e).lower():
+                logger.debug(f"Payload indexes already exist: {e}")
+            else:
+                logger.warning(f"Failed to create payload indexes (non-fatal): {e}")
+
     async def _initialize(self) -> None:
         """Lazy initialization of Qdrant client."""
         if self._is_initialized:
@@ -228,8 +277,10 @@ class QdrantVectorStore:
                     on_disk_payload=True,  # Critical for free tier RAM constraints
                 )
                 logger.info(f"Collection '{self.collection_name}' created successfully")
+                await self._create_payload_indexes()
             else:
                 logger.debug(f"Collection '{self.collection_name}' already exists")
+                await self._create_payload_indexes()
 
         except Exception as e:
             logger.error(f"Failed to ensure collection: {e}", exc_info=True)

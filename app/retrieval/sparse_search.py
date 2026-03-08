@@ -41,10 +41,10 @@ class BM25Corpus:
 
     async def ensure_initialized(self, force: bool = False) -> None:
         """
-        Ensure BM25 corpus is initialized (lazy loading).
+        Ensure BM25 corpus is initialized (lazy loading) with retry for Qdrant indexing delays.
 
-        Args:
-            force: Force rebuild even if already initialized
+        Qdrant indexing is asynchronous - chunks may not be immediately searchable after upsert.
+        This method retries up to 3 times with exponential backoff to handle indexing delays.
         """
         if self.bm25 is not None and not force:
             return
@@ -57,51 +57,89 @@ class BM25Corpus:
             logger.info("Building BM25 corpus from Qdrant chunks...")
             start_time = time.time()
 
-            try:
-                # Fetch all chunks from Qdrant (with payload)
-                points = await self._fetch_all_chunks()
+            # Retry parameters for Qdrant indexing delays
+            max_retries = 3
+            base_delay = 0.5  # seconds
 
-                if not points:
-                    logger.warning("No chunks found in Qdrant for BM25 corpus")
-                    self.bm25 = None
+            for attempt in range(max_retries):
+                try:
+                    # Fetch all chunks from Qdrant (with payload)
+                    points = await self._fetch_all_chunks()
+
+                    # Handle empty results (Qdrant indexing delay)
+                    if not points:
+                        if attempt < max_retries - 1:
+                            delay = base_delay * (2**attempt)  # Exponential backoff: 0.5s, 1s, 2s
+                            logger.warning(
+                                f"No chunks found in collection '{self.vector_store.collection_name}' "
+                                f"(attempt {attempt + 1}/{max_retries}). "
+                                f"Retrying in {delay:.1f}s (Qdrant indexing delay)..."
+                            )
+                            await asyncio.sleep(delay)
+                            continue
+                        else:
+                            logger.warning(
+                                "No chunks found in Qdrant after retries. "
+                                "BM25 corpus will be empty (searches will return 0 results)."
+                            )
+                            self.bm25 = None
+                            self.corpus = []
+                            self.chunk_ids = []
+                            self.payloads = []
+                            return
+
+                    # Build corpus with text + metadata for richer matching
                     self.corpus = []
                     self.chunk_ids = []
                     self.payloads = []
-                    return
 
-                # Build corpus with text + metadata for richer matching
-                self.corpus = []
-                self.chunk_ids = []
-                self.payloads = []
+                    for point in points:
+                        chunk_text = point.payload.get("text", "")
+                        anime_title = point.payload.get("anime_title", "")
+                        source_type = point.payload.get("source_type", "")
 
-                for point in points:
-                    chunk_text = point.payload.get("text", "")
-                    anime_title = point.payload.get("anime_title", "")
-                    source_type = point.payload.get("source_type", "")
+                        # Enrich corpus with metadata for better keyword matching
+                        enriched_text = f"{anime_title} {source_type} {chunk_text}"
+                        self.corpus.append(enriched_text)
+                        self.chunk_ids.append(point.id)
+                        self.payloads.append(point.payload)
 
-                    # Enrich corpus with metadata for better keyword matching
-                    enriched_text = f"{anime_title} {source_type} {chunk_text}"
-                    self.corpus.append(enriched_text)
-                    self.chunk_ids.append(point.id)
-                    self.payloads.append(point.payload)
+                    # Tokenize and build BM25 index
+                    tokenized_corpus = [self._tokenize(text) for text in self.corpus]
+                    self.bm25 = BM25Okapi(tokenized_corpus)
 
-                # Tokenize and build BM25 index
-                tokenized_corpus = [self._tokenize(text) for text in self.corpus]
-                self.bm25 = BM25Okapi(tokenized_corpus)
+                    duration = time.time() - start_time
+                    logger.info(
+                        f"✓ BM25 corpus built successfully: "
+                        f"{len(self.corpus)} chunks in {duration:.2f}s "
+                        f"(after {attempt + 1} attempt(s))"
+                    )
+                    self._last_rebuild = time.time()
+                    return  # Success - exit function
 
-                duration = time.time() - start_time
-                logger.info(
-                    f"BM25 corpus built successfully: {len(self.corpus)} chunks in {duration:.2f}s"
-                )
-                self._last_rebuild = time.time()
-
-            except Exception as e:
-                logger.error(f"Failed to build BM25 corpus: {e}", exc_info=True)
-                raise
+                except Exception as e:
+                    if attempt == max_retries - 1:
+                        logger.error(
+                            f"Failed to build BM25 corpus after {max_retries} attempts: {e}",
+                            exc_info=True,
+                        )
+                        raise
+                    else:
+                        delay = base_delay * (2**attempt)
+                        logger.warning(
+                            f"Corpus build attempt {attempt + 1} failed: {e}. "
+                            f"Retrying in {delay:.1f}s..."
+                        )
+                        await asyncio.sleep(delay)
 
     async def _fetch_all_chunks(self) -> list[VectorPoint]:
         """
-        Fetch all chunks from Qdrant collection.
+        Fetch all chunks from Qdrant collection (bulletproof for all qdrant-client versions).
+
+        Handles:
+        - Legacy (<1.8): scroll() returns tuple (points, next_offset)
+        - Modern (≥1.8): scroll() returns ScrollResponse with .points/.next_page_offset
+        - Empty first scroll (Qdrant indexing delay) - retries internally
 
         Returns:
             List of VectorPoint objects with payloads
@@ -109,38 +147,80 @@ class BM25Corpus:
         client = self.vector_store._client
         if client is None:
             raise RuntimeError(
-                "Qdrant client not initialized. Call vector_store.initialize() first."
+                "Qdrant client not initialized. Call vector_store._initialize() first."
             )
 
-        # Use scroll API for efficient large collection retrieval
         points: list[VectorPoint] = []
         offset = None
+        attempt = 0
+        max_attempts = 3
 
-        while True:
-            # Qdrant scroll returns points + next offset
-            scroll_result = await asyncio.to_thread(
-                client.scroll,
-                collection_name=self.vector_store.collection_name,
-                limit=100,  # Batch size for free tier efficiency
-                offset=offset,
-                with_payload=True,
-                with_vectors=False,
-            )
-
-            batch_points, next_offset = scroll_result
-
-            # Convert to VectorPoint objects
-            for record in batch_points:
-                points.append(
-                    VectorPoint(
-                        id=str(record.id), vector=[], payload=record.payload or {}, score=None
-                    )
+        while attempt < max_attempts:
+            try:
+                # Execute scroll
+                scroll_result = await asyncio.to_thread(
+                    client.scroll,
+                    collection_name=self.vector_store.collection_name,
+                    limit=100,
+                    offset=offset,
+                    with_payload=True,
+                    with_vectors=False,
                 )
 
-            offset = next_offset
-            if offset is None:
-                break
+                # ✅ BULLETPROOF TYPE DETECTION
+                if isinstance(scroll_result, tuple):
+                    # Legacy API (<1.8)
+                    batch_points, next_offset = scroll_result
+                    logger.debug(
+                        f"Detected legacy qdrant-client API: fetched {len(batch_points)} points"
+                    )
+                else:
+                    # Modern API (≥1.8)
+                    batch_points = getattr(scroll_result, "points", [])
+                    next_offset = getattr(scroll_result, "next_page_offset", None)
+                    logger.debug(
+                        f"Detected modern qdrant-client API: fetched {len(batch_points)} points"
+                    )
 
+                # ✅ CRITICAL FIX: Handle empty first scroll (Qdrant indexing delay)
+                if not batch_points and offset is None and attempt < max_attempts - 1:
+                    attempt += 1
+                    delay = 0.5 * (2**attempt)  # Exponential backoff: 1s, 2s, 4s
+                    logger.warning(
+                        f"Empty scroll result on attempt {attempt} (Qdrant indexing delay). "
+                        f"Retrying in {delay:.1f}s..."
+                    )
+                    await asyncio.sleep(delay)
+                    continue
+
+                # Process points
+                for record in batch_points:
+                    points.append(
+                        VectorPoint(
+                            id=str(record.id),
+                            vector=[],
+                            payload=record.payload or {},
+                            score=None,
+                        )
+                    )
+
+                # Check for more pages
+                if next_offset is None:
+                    break
+                offset = next_offset
+                attempt = 0  # Reset attempt counter on successful page fetch
+
+            except Exception as e:
+                logger.error(f"Scroll failed on attempt {attempt + 1}: {e}", exc_info=True)
+                attempt += 1
+                if attempt >= max_attempts:
+                    raise
+                await asyncio.sleep(0.5 * (2**attempt))
+
+        logger.info(
+            f"✓ Fetched {len(points)} chunks from '{self.vector_store.collection_name}' "
+            f"after {attempt + 1} attempt(s)"
+        )
         return points
 
     def _tokenize(self, text: str) -> list[str]:

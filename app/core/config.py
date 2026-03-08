@@ -44,6 +44,7 @@ class Settings(BaseSettings):
     # ===== VECTOR DATABASE (Qdrant - AniRAG) =====
     QDRANT_URL: str = "https://your-uuid.us-east-1-0.aws.cloud.qdrant.io:6333"
     QDRANT_COLLECTION_NAME: str = "anime_knowledge"
+    QDRANT_TEST_COLLECTION_NAME: str = "anime_knowledge_test"
     QDRANT_VECTOR_SIZE: int = 384
 
     # ===== EMBEDDING MODEL =====
