@@ -76,7 +76,7 @@ class SemanticCacheManager:
         )
 
     async def _initialize(self) -> None:
-        """Lazy initialization of Redis client and embedder."""
+        """Lazy initialization of Redis client (embedder initialized on first use)."""
         if self._is_initialized:
             return
 
@@ -105,21 +105,15 @@ class SemanticCacheManager:
                 self._redis = None
                 # Don't raise - cache is optional for query processing
 
-            # Initialize embedder (required for semantic matching)
-            try:
-                logger.debug("Initializing embedding generator for cache...")
-                self._embedder = EmbeddingGenerator()
-                logger.info("✓ Embedding generator initialized for semantic cache")
-            except Exception as e:
-                logger.error(f"Embedder initialization failed: {e}", exc_info=True)
-                raise
-
             self._is_initialized = True
 
     async def _get_embedding(self, query: str) -> np.ndarray:
-        """Get embedding for query (cached internally by EmbeddingGenerator)."""
-        if not self._embedder:
-            raise RuntimeError("Embedder not initialized. Call _initialize() first.")
+        """Get embedding for query (lazy initialization of embedder)."""
+        # Lazy initialization of embedder (happens in test's event loop context)
+        if self._embedder is None:
+            logger.debug("Lazy initializing embedding generator for cache...")
+            self._embedder = EmbeddingGenerator()
+            logger.info("✓ Embedding generator initialized for semantic cache")
 
         embedding, _ = await asyncio.to_thread(self._embedder.generate_single, query)
         return embedding
@@ -165,14 +159,17 @@ class SemanticCacheManager:
         - Cosine similarity ≥ similarity_threshold (default 0.95)
         - TTL not expired (default 7 days)
         """
+        # Check availability BEFORE initialization
         if not self._redis_available:
             logger.debug("Redis unavailable - skipping cache lookup")
             return None
 
+        # Initialize if needed (may set _redis_available=False on failure)
         await self._initialize()
 
-        if self._redis is None:
-            raise RuntimeError("Redis client not initialized despite _redis_available=True")
+        if not self._redis_available or self._redis is None:
+            logger.debug("Redis unavailable after initialization - skipping cache lookup")
+            return None
 
         try:
             # Get query embedding
