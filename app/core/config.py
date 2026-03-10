@@ -47,6 +47,11 @@ class Settings(BaseSettings):
     QDRANT_TEST_COLLECTION_NAME: str = "anime_knowledge_test"
     QDRANT_VECTOR_SIZE: int = 384
 
+    # ===== CACHE =====
+    REDIS_URL: str = "https://rapid-cardinal-50147.upstash.io"
+    CACHE_TTL_SECONDS: int = 604800  # 7 days
+    SEMANTIC_CACHE_THRESHOLD: float = 0.95
+
     # ===== EMBEDDING MODEL =====
     EMBEDDING_MODEL_NAME: str = "sentence-transformers/all-MiniLM-L6-v2"
     EMBEDDING_DEVICE: Literal["cpu", "cuda"] = "cpu"
@@ -65,10 +70,6 @@ class Settings(BaseSettings):
     JIKAN_API_URL: str = "https://api.jikan.moe/v4"
     JIKAN_RATE_LIMIT_PER_SECOND: float = 3.0
     ANILIST_API_URL: str = "https://graphql.anilist.co"
-
-    # ===== CACHE =====
-    CACHE_TTL_SECONDS: int = 604800  # 7 days
-    SEMANTIC_CACHE_THRESHOLD: float = 0.95
 
     # ===== DEPRECATED (ChromaDB) =====
     # Kept for migration path but NOT used in AniRAG pipeline
