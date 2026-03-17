@@ -12,7 +12,7 @@ repos:
 
   # Black - Code Formatting
   - repo: https://github.com/psf/black-pre-commit-mirror
-    rev: 24.10.0 # Updated to latest stable
+    rev: 26.3.1 # Updated to latest stable
     hooks:
       - id: black
 
