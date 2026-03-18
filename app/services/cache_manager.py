@@ -64,7 +64,15 @@ class SemanticCacheManager:
         self._redis: aioredis.Redis | None = None
         self._embedder: EmbeddingGenerator | None = None
         self._is_initialized: bool = False
-        self._initialization_lock = asyncio.Lock()
+
+        # FIX: Do not create asyncio.Lock() in __init__.
+        # asyncio.Lock() captures the running event loop at creation time.
+        # __init__ runs synchronously (outside any coroutine), so there may
+        # be no running loop, or the loop captured here differs from the one
+        # that later runs _initialize(). The lazy _lock property creates the
+        # lock on first access, which always happens inside a coroutine on
+        # the correct running loop.
+        self._initialization_lock: asyncio.Lock | None = None
 
         # Circuit breaker state
         self._redis_available: bool = True
@@ -75,16 +83,29 @@ class SemanticCacheManager:
             f"threshold={similarity_threshold}, ttl={ttl_seconds}s, namespace={namespace}"
         )
 
+    @property
+    def _lock(self) -> asyncio.Lock:
+        """
+        Lazy lock — always created on the currently running event loop.
+
+        Only ever accessed from inside async methods, so the lock is always
+        bound to the correct loop. Avoids the 'Future attached to a different
+        loop' error that occurs when Lock() is created in __init__.
+        """
+        if self._initialization_lock is None:
+            self._initialization_lock = asyncio.Lock()
+        return self._initialization_lock
+
     async def _initialize(self) -> None:
-        """Lazy initialization of Redis client (embedder initialized on first use)."""
+        """Lazy initialization of Redis client."""
         if self._is_initialized:
             return
 
-        async with self._initialization_lock:
+        # FIX: use self._lock (lazy property) not self._initialization_lock (raw attr)
+        async with self._lock:
             if self._is_initialized:
                 return
 
-            # Initialize Redis client
             try:
                 logger.debug(f"Connecting to Redis at {self.redis_url}")
                 self._redis = aioredis.from_url(
@@ -95,7 +116,6 @@ class SemanticCacheManager:
                     socket_connect_timeout=5.0,
                     retry_on_timeout=True,
                 )
-                # Test connection
                 await cast("Awaitable[bool]", self._redis.ping())
                 logger.info("✓ Redis connection established")
                 self._redis_available = True
@@ -103,47 +123,48 @@ class SemanticCacheManager:
                 logger.warning(f"Redis initialization failed (cache disabled): {e}")
                 self._redis_available = False
                 self._redis = None
-                # Don't raise - cache is optional for query processing
 
             self._is_initialized = True
 
-    async def _get_embedding(self, query: str) -> np.ndarray:
-        """Get embedding for query (lazy initialization of embedder)."""
-        # Lazy initialization of embedder (happens in test's event loop context)
+    def _get_embedding(self, query: str) -> np.ndarray:
+        """
+        Get embedding for query synchronously.
+
+        FIX: Plain def, not async. SentenceTransformer.encode() is CPU-bound
+        with no I/O — there is nothing to await. Calling it synchronously
+        avoids submitting it to an executor, which caused deadlocks on Windows
+        when PyTorch spawned its own threads inside the executor thread.
+        """
         if self._embedder is None:
             logger.debug("Lazy initializing embedding generator for cache...")
             self._embedder = EmbeddingGenerator()
             logger.info("✓ Embedding generator initialized for semantic cache")
 
-        embedding, _ = await asyncio.to_thread(self._embedder.generate_single, query)
+        embedding, _ = self._embedder.generate_single(query)
         return embedding
 
     def _embedding_to_key(self, embedding: np.ndarray) -> str:
-        """
-        Convert embedding to Redis key using SHA256 hash.
-
-        Why hash instead of raw embedding?
-        - Redis keys must be strings (not binary blobs)
-        - Hashing provides fixed-length keys for efficient lookup
-        - Collision probability negligible for 384-dim vectors (SHA256)
-        """
-        # Normalize embedding first (cosine similarity requires unit vectors)
-        norm = np.linalg.norm(embedding)
+        """Convert embedding to Redis key — avoids OpenBLAS deadlock on Windows."""
+        emb_list = embedding.tolist()
+        norm = sum(x * x for x in emb_list) ** 0.5
         if norm > 0:
-            embedding = embedding / norm
-
-        # Convert to bytes and hash
-        embedding_bytes = embedding.astype(np.float32).tobytes()
+            emb_list = [x / norm for x in emb_list]
+        embedding_bytes = np.array(emb_list, dtype=np.float32).tobytes()
         key_hash = hashlib.sha256(embedding_bytes).hexdigest()
         return f"{self.namespace}:{key_hash}"
 
     def _cosine_similarity(self, a: np.ndarray, b: np.ndarray) -> float:
-        """Compute cosine similarity between two vectors."""
-        a_norm = np.linalg.norm(a)
-        b_norm = np.linalg.norm(b)
+        """Cosine similarity using pure Python — avoids OpenBLAS deadlock on Windows."""
+        a_list: list[float] = a.tolist()
+        b_list: list[float] = b.tolist()
+
+        dot = sum(x * y for x, y in zip(a_list, b_list, strict=True))
+        a_norm = sum(x * x for x in a_list) ** 0.5
+        b_norm = sum(x * x for x in b_list) ** 0.5
+
         if a_norm == 0 or b_norm == 0:
             return 0.0
-        return float(np.dot(a, b) / (a_norm * b_norm))
+        return float(dot / (a_norm * b_norm))
 
     async def get(self, query: str) -> dict[str, Any] | None:
         """
@@ -154,17 +175,11 @@ class SemanticCacheManager:
 
         Returns:
             Cached result dict if similarity ≥ threshold, else None
-
-        Cache hit criteria:
-        - Cosine similarity ≥ similarity_threshold (default 0.95)
-        - TTL not expired (default 7 days)
         """
-        # Check availability BEFORE initialization
         if not self._redis_available:
             logger.debug("Redis unavailable - skipping cache lookup")
             return None
 
-        # Initialize if needed (may set _redis_available=False on failure)
         await self._initialize()
 
         if not self._redis_available or self._redis is None:
@@ -172,56 +187,49 @@ class SemanticCacheManager:
             return None
 
         try:
-            # Get query embedding
-            query_embedding = await self._get_embedding(query)
+            # FIX: no await — _get_embedding is a plain def
+            query_embedding = self._get_embedding(query)
 
-            # Scan Redis for semantically similar keys (naive approach for <10K entries)
-            # Production enhancement (Phase 5): Use RedisVL or dedicated vector index
             similar_results = []
-
-            # Get all cache keys (efficient for <10K entries; free tier limit)
             pattern = f"{self.namespace}:*"
-            cursor = 0
-            while cursor != 0:
-                cursor, keys = await self._redis.scan(cursor=cursor, match=pattern, count=100)
-                if not keys:
-                    continue
 
-                # Fetch values for batch of keys
-                pipe = self._redis.pipeline()
-                for key in keys:
-                    pipe.get(key)
-                values = await pipe.execute()
+            # FIX: cursor starts as "0", loop exits when Redis returns "0" again.
+            # Original code used `cursor = 0; while cursor != 0` which never
+            # entered the loop body since the initial value matched the exit condition.
+            cursor = "0"
+            while True:
+                cursor, keys = await self._redis.scan(
+                    cursor=cast(int, cursor), match=pattern, count=100
+                )
 
-                # Check similarity for each cached result
-                for key, value_json in zip(keys, values, strict=True):
-                    if not value_json:
-                        continue
+                if keys:
+                    for key in keys:
+                        value_json = await self._redis.get(key)
+                        if not value_json:
+                            continue
+                        try:
+                            cached = json.loads(value_json)
+                            cached_embedding = np.array(cached["embedding"])
+                            similarity = self._cosine_similarity(query_embedding, cached_embedding)
+                            if similarity >= self.similarity_threshold:
+                                cached["similarity"] = similarity
+                                similar_results.append(cached)
+                        except (json.JSONDecodeError, KeyError, ValueError) as e:
+                            logger.warning(f"Invalid cache entry {key}: {e}")
+                            await self._redis.delete(key)
 
-                    try:
-                        cached = json.loads(value_json)
-                        cached_embedding = np.array(cached["embedding"])
-                        similarity = self._cosine_similarity(query_embedding, cached_embedding)
+                if cursor == "0":
+                    break
 
-                        if similarity >= self.similarity_threshold:
-                            cached["similarity"] = similarity
-                            similar_results.append(cached)
-                    except (json.JSONDecodeError, KeyError, ValueError) as e:
-                        logger.warning(f"Invalid cache entry {key}: {e}")
-                        # Clean up invalid entry
-                        await self._redis.delete(key)
-
-            # Return best match (highest similarity)
             if similar_results:
                 best: dict[str, Any] = max(similar_results, key=lambda x: x["similarity"])
                 logger.debug(f"Cache hit (similarity={best['similarity']:.4f}): '{query[:50]}...'")
                 return best
-            else:
-                logger.debug(f"Cache miss for query: '{query[:50]}...'")
-                return None
+
+            logger.debug(f"Cache miss for query: '{query[:50]}...'")
+            return None
 
         except Exception as e:
-            # Circuit breaker: mark Redis unavailable on failure
             self._redis_available = False
             self._last_redis_failure = time.time()
             logger.warning(f"Cache lookup failed (disabling cache temporarily): {e}")
@@ -252,14 +260,14 @@ class SemanticCacheManager:
 
         await self._initialize()
 
-        if self._redis is None:
-            raise RuntimeError("Redis client not initialized despite _redis_available=True")
+        if not self._redis_available or self._redis is None:
+            logger.debug("Redis unavailable after initialization - skipping cache store")
+            return False
 
         try:
-            # Get query embedding
-            query_embedding = await self._get_embedding(query)
+            # FIX: no await — _get_embedding is a plain def
+            query_embedding = self._get_embedding(query)
 
-            # Build cache entry
             cache_entry = {
                 "query": query,
                 "embedding": query_embedding.tolist(),
@@ -269,10 +277,7 @@ class SemanticCacheManager:
                 "timestamp": time.time(),
             }
 
-            # Generate Redis key from embedding
             key = self._embedding_to_key(query_embedding)
-
-            # Store in Redis with TTL
             await self._redis.set(
                 key,
                 json.dumps(cache_entry, ensure_ascii=False),
@@ -285,7 +290,6 @@ class SemanticCacheManager:
             return True
 
         except Exception as e:
-            # Circuit breaker: mark Redis unavailable on failure
             self._redis_available = False
             self._last_redis_failure = time.time()
             logger.warning(f"Cache store failed (disabling cache temporarily): {e}")
@@ -312,16 +316,19 @@ class SemanticCacheManager:
             if not self._redis:
                 return {"status": "error", "message": "Redis client not initialized"}
 
-            # Lightweight ping check
             await cast("Awaitable[bool]", self._redis.ping())
 
-            # Get cache stats
+            # FIX: same scan loop correction as get()
             pattern = f"{self.namespace}:*"
-            cursor = 0
+            cursor = "0"
             key_count = 0
-            while cursor != 0:
-                cursor, keys = await self._redis.scan(cursor=cursor, match=pattern, count=100)
+            while True:
+                cursor, keys = await self._redis.scan(
+                    cursor=cast(int, cursor), match=pattern, count=100
+                )
                 key_count += len(keys)
+                if cursor == "0":
+                    break
 
             return {
                 "status": "ok",
@@ -362,7 +369,6 @@ def get_cache_manager() -> SemanticCacheManager:
             cached = await cache_manager.get(request.query)
             if cached:
                 return cached["answer"]
-            # ... proceed to retrieval/generation ...
     """
     global _cache_manager_instance
     if _cache_manager_instance is None:
