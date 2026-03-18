@@ -3,7 +3,12 @@ Integration test configuration with isolated Qdrant test collection.
 Ensures test data never pollutes production collection.
 """
 
+import hashlib
 import os
+
+from typing import Any
+
+import numpy as np
 
 os.environ["OMP_NUM_THREADS"] = "1"
 os.environ["OPENBLAS_NUM_THREADS"] = "1"
@@ -127,13 +132,19 @@ async def test_sparse_engine(
 
 
 @pytest_asyncio.fixture(scope="session", autouse=True)
-async def populated_test_collection(test_vector_store, test_sparse_engine, preload_embedding_model):
+async def populated_test_collection(
+    request, test_vector_store, test_sparse_engine, preload_embedding_model
+):
     """
     Populate the test collection AND rebuild the BM25 corpus atomically.
 
     Depends on preload_embedding_model so the model is cached before the
     pipeline creates its own EmbeddingGenerator internally.
     """
+    if request.node.get_closest_marker("cache_only"):
+        yield set()
+        return
+
     logger.info("\n🚀 Populating test collection with 5 anime...")
 
     result = await run_minimal_pipeline(
@@ -153,7 +164,7 @@ async def populated_test_collection(test_vector_store, test_sparse_engine, prelo
     ingested_titles: set[str] = set(result.get("anime_titles", []))
     logger.info(f"✅ Ingested titles: {ingested_titles}")
 
-    return ingested_titles
+    yield ingested_titles
 
 
 @pytest_asyncio.fixture(scope="session")
@@ -173,3 +184,59 @@ async def test_hybrid_engine(test_vector_store, test_sparse_engine):
         rrf_k=60,
     )
     yield engine
+
+
+@pytest.fixture
+def mock_embedder():
+    """
+    Mock embedder matching EmbeddingGenerator interface exactly.
+
+    Returns:
+        - generate_single: tuple[np.ndarray, dict[str, Any]]
+        - generate: tuple[np.ndarray, list[dict[str, Any]]]
+
+    Embeddings are deterministic (SHA256-based) and pre-normalized,
+    matching the real model's normalize_embeddings=True behavior.
+    """
+
+    class MockEmbedder:
+        def __init__(self, dim: int = 384):
+            self.dim = dim
+            self.model_name = "mock/sentence-transformer"
+
+        def generate_single(self, text: str) -> tuple[np.ndarray, dict[str, Any]]:
+            if not text.strip():
+                raise ValueError("Cannot generate embedding for empty text")
+
+            # Deterministic embedding from SHA256 hash
+            hash_bytes = hashlib.sha256(text.encode("utf-8")).digest()
+            embedding = np.array(
+                [(hash_bytes[i % 32] - 128) / 128.0 for i in range(self.dim)],
+                dtype=np.float32,
+            )
+            # Pre-normalize to match real model's normalize_embeddings=True
+            norm = np.linalg.norm(embedding)
+            if norm > 1e-8:
+                embedding = embedding / norm
+
+            metadata = {
+                "text_length": len(text),
+                "model": self.model_name,
+                "dimension": self.dim,
+            }
+            return embedding, metadata
+
+        def generate(self, texts: list[str]) -> tuple[np.ndarray, list[dict[str, Any]]]:
+            if not texts:
+                return np.array([]), []
+
+            embeddings = []
+            metadata_list = []
+            for text in texts:
+                emb, meta = self.generate_single(text)
+                embeddings.append(emb)
+                metadata_list.append(meta)
+
+            return np.stack(embeddings), metadata_list
+
+    return MockEmbedder()

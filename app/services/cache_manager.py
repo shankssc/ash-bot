@@ -144,23 +144,38 @@ class SemanticCacheManager:
         return embedding
 
     def _embedding_to_key(self, embedding: np.ndarray) -> str:
-        """Convert embedding to Redis key — avoids OpenBLAS deadlock on Windows."""
+        """Convert embedding to Redis key — explicit loops avoid coverage deadlock."""
         emb_list = embedding.tolist()
-        norm = sum(x * x for x in emb_list) ** 0.5
-        if norm > 0:
+
+        # Compute L2 norm with explicit loop
+        norm_sq = 0.0
+        for x in emb_list:
+            norm_sq += x * x
+        norm = norm_sq**0.5
+
+        if norm > 1e-8:
             emb_list = [x / norm for x in emb_list]
+
         embedding_bytes = np.array(emb_list, dtype=np.float32).tobytes()
         key_hash = hashlib.sha256(embedding_bytes).hexdigest()
         return f"{self.namespace}:{key_hash}"
 
     def _cosine_similarity(self, a: np.ndarray, b: np.ndarray) -> float:
-        """Cosine similarity using pure Python — avoids OpenBLAS deadlock on Windows."""
+        """Cosine similarity using explicit loops — avoids coverage.py deadlock on Windows."""
         a_list: list[float] = a.tolist()
         b_list: list[float] = b.tolist()
 
-        dot = sum(x * y for x, y in zip(a_list, b_list, strict=True))
-        a_norm = sum(x * x for x in a_list) ** 0.5
-        b_norm = sum(x * x for x in b_list) ** 0.5
+        # FIX: Use explicit loops instead of generator expressions
+        dot = 0.0
+        a_sq = 0.0
+        b_sq = 0.0
+        for i in range(len(a_list)):
+            dot += a_list[i] * b_list[i]
+            a_sq += a_list[i] * a_list[i]
+            b_sq += b_list[i] * b_list[i]
+
+        a_norm = a_sq**0.5
+        b_norm = b_sq**0.5
 
         if a_norm == 0 or b_norm == 0:
             return 0.0

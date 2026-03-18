@@ -11,14 +11,22 @@ so it works correctly regardless of which loop is running.
 """
 
 import asyncio
+import sys
 import time
 
-import fakeredis
+import fakeredis.aioredis
 import pytest
 
 from app.services.cache_manager import SemanticCacheManager
 
-pytestmark = pytest.mark.asyncio
+pytestmark = [
+    pytest.mark.asyncio,
+    pytest.mark.cache_only,
+    pytest.mark.skipif(
+        sys.platform == "win32",
+        reason="fakeredis.aioredis SCAN command deadlocks on Windows — runs in CI (Linux)",
+    ),
+]
 
 
 def make_manager(
@@ -54,14 +62,19 @@ def make_manager(
 
 
 @pytest.fixture
-def fake_redis():
+async def fake_redis():
     """Fresh in-memory Redis instance per test — no event loop binding."""
-    return fakeredis.FakeRedis(decode_responses=True)
+    fake = fakeredis.aioredis.FakeRedis(
+        decode_responses=True,
+        acl=False,
+    )
+    yield fake
+    await fake.close()
 
 
-async def test_cache_set_and_get(fake_redis, test_embedder):
+async def test_cache_set_and_get(fake_redis, mock_embedder):
     """Test basic cache set/get with semantic matching."""
-    manager = make_manager(fake_redis, test_embedder)
+    manager = make_manager(fake_redis, mock_embedder)
 
     query = "Who directed Cowboy Bebop?"
     answer = "Shinichirō Watanabe directed Cowboy Bebop."
@@ -76,9 +89,9 @@ async def test_cache_set_and_get(fake_redis, test_embedder):
     assert cached["similarity"] >= 0.99
 
 
-async def test_semantic_cache_hit(fake_redis, test_embedder):
+async def test_semantic_cache_hit(fake_redis, mock_embedder):
     """Test cache hit on semantically similar queries (not exact match)."""
-    manager = make_manager(fake_redis, test_embedder)
+    manager = make_manager(fake_redis, mock_embedder)
 
     original_query = "Who directed the anime Cowboy Bebop?"
     answer = "Shinichirō Watanabe"
@@ -94,9 +107,9 @@ async def test_semantic_cache_hit(fake_redis, test_embedder):
     assert cached["similarity"] >= 0.90
 
 
-async def test_cache_miss_on_dissimilar_query(fake_redis, test_embedder):
+async def test_cache_miss_on_dissimilar_query(fake_redis, mock_embedder):
     """Test cache miss on semantically dissimilar queries."""
-    manager = make_manager(fake_redis, test_embedder)
+    manager = make_manager(fake_redis, mock_embedder)
 
     await manager.set(
         "Who directed Cowboy Bebop?",
@@ -108,11 +121,11 @@ async def test_cache_miss_on_dissimilar_query(fake_redis, test_embedder):
     assert cached is None, "Dissimilar query should miss cache"
 
 
-async def test_cache_ttl_expiration(test_embedder):
+async def test_cache_ttl_expiration(mock_embedder):
     """Test cache entry expires after TTL."""
     # Fresh fakeredis per test — no shared state issues
     fake_redis = fakeredis.FakeRedis(decode_responses=True)
-    manager = make_manager(fake_redis, test_embedder, ttl=1, namespace="cache_test_ttl")
+    manager = make_manager(fake_redis, mock_embedder, ttl=1, namespace="cache_test_ttl")
 
     query = "Test TTL query for expiration"
     await manager.set(query, "Test answer", [{"anime_id": 1, "title": "Test"}])

@@ -97,6 +97,9 @@ markers = [
     "slow: marks tests as slow (deselect with '-m \"not slow\"')",
     "integration: integration tests",
     "memory: memory-intensive tests",
+    "requires_qdrant: marks tests that need real Qdrant connection",
+    "cache_only: marks tests that only need Redis + embedder (skip Qdrant setup)",
+    "skip_windows: skip on Windows due to fakeredis compatibility",
 ]
 
 [tool.coverage.run]
