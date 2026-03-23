@@ -84,6 +84,7 @@ testpaths = ["tests"]
 python_files = ["test_*.py", "*_test.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
+asyncio_mode = "auto"
 addopts = [
     "--strict-markers",
     "--tb=short",
@@ -96,6 +97,9 @@ markers = [
     "slow: marks tests as slow (deselect with '-m \"not slow\"')",
     "integration: integration tests",
     "memory: memory-intensive tests",
+    "requires_qdrant: marks tests that need real Qdrant connection",
+    "cache_only: marks tests that only need Redis + embedder (skip Qdrant setup)",
+    "skip_windows: skip on Windows due to fakeredis compatibility",
 ]
 
 [tool.coverage.run]

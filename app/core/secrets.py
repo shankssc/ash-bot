@@ -11,7 +11,7 @@ class Secrets(BaseSettings):
     QDRANT_API_KEY: SecretStr = SecretStr("")
 
     # ===== CACHE =====
-    REDIS_URL: SecretStr = SecretStr("")
+    REDIS_TOKEN: SecretStr = SecretStr("")
 
     # ===== LLM APIs =====
     GROQ_API_KEY: SecretStr = SecretStr("")

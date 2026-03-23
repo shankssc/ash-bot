@@ -276,8 +276,7 @@ class MinimalIngestionPipeline:
             json.dump(manifest, f, indent=2)
 
         with open(self.output_dir / "README.md", "w", encoding="utf-8") as f:
-            f.write(
-                f"""# Minimal Ingestion Pipeline Output
+            f.write(f"""# Minimal Ingestion Pipeline Output
 
 Generated on: {settings.APP_VERSION}
 Duration: {manifest["duration_seconds"]:.2f} seconds
@@ -297,8 +296,7 @@ Embedding dimension: {embeddings.shape[1] if len(embeddings) > 0 else 0}
 import numpy as np
 embeddings = np.load('embeddings.npy')
 ```
-"""
-            )
+""")
 
 
 async def run_minimal_pipeline(
