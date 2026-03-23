@@ -80,11 +80,13 @@ async def test_vector_store():
     temp_client = QdrantClient(
         url=settings.QDRANT_URL,
         api_key=secrets.QDRANT_API_KEY.get_secret_value(),
-        timeout=30,
+        timeout=10,
         prefer_grpc=False,
     )
     try:
-        collections = await asyncio.to_thread(temp_client.get_collections)
+        collections = await asyncio.wait_for(
+            asyncio.to_thread(temp_client.get_collections), timeout=15.0
+        )
         stale = [
             c.name for c in collections.collections if c.name.startswith("anime_knowledge_test_")
         ]
