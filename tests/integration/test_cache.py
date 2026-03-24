@@ -14,7 +14,7 @@ import asyncio
 import sys
 import time
 
-import fakeredis.aioredis
+import fakeredis
 import pytest
 
 from app.services.cache_manager import SemanticCacheManager
@@ -61,15 +61,41 @@ def make_manager(
     return manager
 
 
+class AsyncFakeRedisWrapper:
+    """
+    Wrap sync fakeredis with async methods for cache_manager compatibility.
+    Avoids fakeredis.aioredis SCAN deadlock on CI.
+    """
+
+    def __init__(self, sync_redis):
+        self._redis = sync_redis
+
+    async def scan(self, cursor=0, match=None, count=100):
+        # Sync fakeredis returns (cursor_int, keys_list)
+        result = self._redis.scan(cursor=cursor, match=match, count=count)
+        return result  # Already compatible
+
+    async def get(self, key):
+        return self._redis.get(key)
+
+    async def set(self, key, value, ex=None):
+        return self._redis.set(key, value, ex=ex)
+
+    async def delete(self, key):
+        return self._redis.delete(key)
+
+    async def ping(self):
+        return self._redis.ping()
+
+    async def close(self):
+        pass  # Sync redis has no async close
+
+
 @pytest.fixture
-async def fake_redis():
-    """Fresh in-memory Redis instance per test — no event loop binding."""
-    fake = fakeredis.aioredis.FakeRedis(
-        decode_responses=True,
-        acl=False,
-    )
-    yield fake
-    await fake.close()
+def fake_redis():
+    """Fresh sync in-memory Redis per test — wrapped for async compatibility."""
+    sync_redis = fakeredis.FakeRedis(decode_responses=True)
+    return AsyncFakeRedisWrapper(sync_redis)
 
 
 async def test_cache_set_and_get(fake_redis, mock_embedder):

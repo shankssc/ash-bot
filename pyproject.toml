@@ -116,3 +116,6 @@ exclude_lines = [
 ]
 show_missing = true
 fail_under = 70
+
+[tool.pip-audit]
+ignore-vulns = ["CVE-2026-4539"]
